@@ -1,7 +1,6 @@
 # opsdroid web
 
 [![Build Status](https://travis-ci.com/opsdroid/opsdroid-web.svg?branch=master)](https://travis-ci.com/opsdroid/opsdroid-web)
-[![Dependency Status](https://dependencyci.com/github/opsdroid/opsdroid-web/badge)](https://dependencyci.com/github/opsdroid/opsdroid-web)
 [![Greenkeeper badge](https://badges.greenkeeper.io/opsdroid/opsdroid-web.svg)](https://greenkeeper.io/)
 
 A browser based web app for chatting with [opsdroid](https://github.com/opsdroid/opsdroid).
