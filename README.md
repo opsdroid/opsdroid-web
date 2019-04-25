@@ -1,6 +1,6 @@
 # opsdroid web
 
-[![Build Status](https://travis-ci.org/opsdroid/opsdroid-web.svg?branch=master)](https://travis-ci.org/opsdroid/opsdroid-web)
+[![Build Status](https://travis-ci.com/opsdroid/opsdroid-web.svg?branch=master)](https://travis-ci.com/opsdroid/opsdroid-web)
 [![Dependency Status](https://dependencyci.com/github/opsdroid/opsdroid-web/badge)](https://dependencyci.com/github/opsdroid/opsdroid-web)
 [![Greenkeeper badge](https://badges.greenkeeper.io/opsdroid/opsdroid-web.svg)](https://greenkeeper.io/)
 
