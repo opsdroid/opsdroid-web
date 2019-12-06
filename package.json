@@ -35,6 +35,6 @@
     "browser-cookies": "^1.2.0",
     "md5": "^2.2.1",
     "request": "^2.88.0",
-    "websocket": "^1.0.28"
+    "websocket": "^1.0.31"
   }
 }
