@@ -15,4 +15,12 @@ repos:
         pass_filenames: False
         language: node
         files: ".[tj]sx?$"
+  - repo: local
+    hooks:
+      - id: lintfix
+        name: lintfix
+        entry: "yarn lintfix"
+        language: node
+        files: \.[jt]sx?$ 
+        types: [file]
 
