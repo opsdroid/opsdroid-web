@@ -1,8 +1,23 @@
-# Getting Started with Create React App
+# opsdroid web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Build Status](https://travis-ci.com/opsdroid/opsdroid-web.svg?branch=master)](https://travis-ci.com/opsdroid/opsdroid-web)
+[![Greenkeeper badge](https://badges.greenkeeper.io/opsdroid/opsdroid-web.svg)](https://greenkeeper.io/)
 
-## Available Scripts
+A browser based web app for chatting with [opsdroid](https://github.com/opsdroid/opsdroid).
+
+![Screenshot](https://user-images.githubusercontent.com/1610850/56742336-73e49580-676c-11e9-896a-9df8adfab37d.png)
+
+## Development
+
+```bash
+git clone https://github.com/opsdroid/opsdroid-web.git
+cd opsdroid-web
+pre-commit install
+yarn install
+yarn start
+```
+
+## Available scripts
 
 In the project directory, you can run:
 
@@ -39,8 +54,19 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `yarn lint`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Runs eslint on all the files under `scr/` and informs you of any linting issues. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `yarn lintfix`
+
+Because fixing lint manually is so 2000, you can run this command to automatically fix all the lint issues that your files may have.
+
+### `yarn build-check`
+
+Runs the typescript compiler to confirm that all files are typed correctly and don't have any issues. 
+Note: This is the script run with pre-commit.
+
+## Contributing
+
+Pull requests are welcome!
