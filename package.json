@@ -1,7 +1,20 @@
 {
-  "name": "opsdroid-command-center",
-  "version": "0.1.0",
-  "private": true,
+  "name": "opsdroid-web",
+  "version": "0.2.0",
+  "description": "A web client for interacting with opsdroid.",
+  "repository": "https://github.com/opsdroid/opsdroid-web",
+  "keywords": [
+    "opsdroid",
+    "events",
+    "chatops",
+    "chatbot",
+    "bot"
+  ],
+  "author": "Jacob Tomlinson <jacob@tomlinson.email> (http://www.jacobtomlinson.co.uk/)",
+  "contributors": [
+    "Fabio Rosado <hello@fabiorosado.dev> (http://www.fabiorosado.dev)"
+  ],
+  "license": "Apache-2.0",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
