@@ -1,25 +1,29 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SystemUpdateAltIcon from "../icons/updateIcon";
 
 type updateState = {
-  isLatest: boolean;
+  checkedForUpdate: boolean;
+  localIsLatest: boolean;
   name: string;
 };
 
-export const UpdateMessage = (): React.ReactElement => {
+export const UpdateMessage = () => {
   const localVersion = process.env.REACT_APP_VERSION;
   const [latestVersion, setLatestVersion] = useState<updateState>({
-    isLatest: false,
+    checkedForUpdate: false,
+    localIsLatest: true,
     name: "",
   });
 
-  useEffect(() => {
-    checkForUpdates();
+  // useEffect(() => {
+  //   if (!latestVersion.checkedForUpdate) {
+  //     checkForUpdates();
+  //   }
 
-    return () => {
-      checkForUpdates();
-    };
-  });
+  //   return () => {
+  //     checkForUpdates();
+  //   };
+  // }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -29,7 +33,7 @@ export const UpdateMessage = (): React.ReactElement => {
 
   const checkForUpdates = () => {
     const RELEASES_URL =
-      "https://api.github.com/repos/opsdroid/opsdroid-desktop/releases/latest";
+      "https://api.github.com/repos/opsdroid/opsdroid-web/releases/latest";
 
     fetch(RELEASES_URL, {
       method: "GET",
@@ -38,20 +42,29 @@ export const UpdateMessage = (): React.ReactElement => {
     })
       .then((response) => {
         if (response.status !== 200) {
-          throw new Error(`Unexpected response code: ${response.status}`);
+          console.error(`Unexpected response code: ${response.status}`);
         } else {
           return response.json();
         }
       })
       .then((latest_tag) => {
-        const latest_version = latest_tag.tag_name.replace("v", "");
-        setLatestVersion({
-          isLatest: latest_version === localVersion,
-          name: latest_version,
-        });
+        const latest_version = latest_tag?.tag_name.replace("v", "");
+        if (latest_version) {
+          setLatestVersion({
+            checkedForUpdate: true,
+            localIsLatest: latest_version === localVersion,
+            name: latest_version,
+          });
+        } else {
+          setLatestVersion({
+            checkedForUpdate: true,
+            localIsLatest: true,
+            name: "",
+          });
+        }
       })
       .catch((err) => {
-        console.log(
+        console.error(
           "Unable to fetch latest version from GitHub. Reason: ",
           err
         );
@@ -59,11 +72,17 @@ export const UpdateMessage = (): React.ReactElement => {
   };
 
   return (
-    <div className="updates-available" onClick={handleClick}>
-      <span className="icon">
-        <SystemUpdateAltIcon />
-      </span>
-      <span>Update available. Download version {latestVersion.name} now.</span>
-    </div>
+    <React.Fragment>
+      {latestVersion.localIsLatest ? null : (
+        <div className="updates-available" onClick={handleClick}>
+          <span className="icon">
+            <SystemUpdateAltIcon />
+          </span>
+          <span>
+            Update available. Download version {latestVersion.name} now.
+          </span>
+        </div>
+      )}
+    </React.Fragment>
   );
 };
