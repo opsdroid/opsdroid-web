@@ -5,6 +5,12 @@
   padding: 10px;
   background-color: $opsdroid-blue;
   color: white;
-  text-align: center;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .icon {
+    padding-right: .5rem;
+  }
 }
