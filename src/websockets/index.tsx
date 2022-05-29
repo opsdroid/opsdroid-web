@@ -1,12 +1,11 @@
 import { MessageType } from "../types";
 import { UIStore } from "../store";
-import React from "react";
+import * as settings from "browser-cookies";
 
 export type WebsocketConnector = {
-  connect: () => void;
+  connect: (socket: string) => void;
   disconnect: (code: number, reason: string) => void;
   send: (message: MessageType) => void;
-  // onMessage: (callback: (message: Message) => void) => void;
 };
 
 // Used when we do client.readyState
@@ -18,46 +17,93 @@ enum clientReadyState {
   CLOSED = 3,
 }
 
-// This is a wrapper around the Websocket which allow us to handle things like backoff, different states, logging, etc
+const sslEnabled = settings.get("sslEnabled") === "true" || false;
+const host = settings.get("host") || "localhost";
+const port = settings.get("port") || "8080";
+
+export const generateConnectionURL = (
+  socket: string,
+  connectionType: "http" | "ws"
+): string => {
+  let protocol: string;
+  if (connectionType === "ws") {
+    protocol = sslEnabled ? "wss" : "ws";
+  } else {
+    protocol = sslEnabled ? "https" : "http";
+  }
+  return `${protocol}://${host}:${port}/connector/websocket/${socket}`;
+};
+
 export const WebsocketClient = (): WebsocketConnector => {
   let ws: WebSocket | undefined;
 
-  // FIXME: Need to fix this, can't use this hook and `UIStore.update()`
-  // const {
-  //   host,
-  //   port,
-  //   sslEnabled,
-  //   // cooldown,
-  //   // timeout,
-  //   // client,
-  //   // connected
-  // } = UIStore.useState((s) => ({
-  //   host: s.clientSettings.host,
-  //   port: s.clientSettings.port,
-  //   sslEnabled: s.clientSettings.sslEnabled,
-  //   // cooldown: s.connection.cooldown,
-  //   // timeout: s.connection.timeout,
-  //   // client: s.connection.client,
-  //   // connected: s.connection.connected,
-  // }));
-  const sslEnabled = false;
-  const host = "localhost";
-  const port = "8080";
-
-  const generateConnectionURL = (): string => {
-    const protocol: string = sslEnabled ? "wss" : "ws";
-    return `${protocol}://${host}:${port}/connector/websocket`;
+  const onCloseWithError_ = (e: CloseEvent) => {
+    console.log(e);
   };
 
-  const connect = () => {
-    const url = generateConnectionURL();
-    console.log(url);
-    ws = new WebSocket(url);
-    // TODO: Handle error and state change
-    console.log("WebsocketClient his: ", ws);
+  const onOpen = () => {
+    send({
+      text: "Connected to websocket",
+      user: "info",
+      timestamp: new Date(),
+    });
     UIStore.update((s) => {
       s.connection.connected = true;
+      s.connection.loadState.type = "connected";
     });
+  };
+
+  const onError = (e: Event) => {
+    UIStore.update((s) => {
+      s.connection.connected = false;
+      s.connection.loadState = { type: "error", error: "Error", data: e };
+    });
+  };
+
+  const onClose = (e: CloseEvent) => {
+    console.log("Received onClose event", e);
+    if (e.wasClean) {
+      send({
+        text: "Disconnected from websocket",
+        user: "info",
+        timestamp: new Date(),
+      });
+      UIStore.update((s) => {
+        s.connection.connected = false;
+        s.connection.loadState.type = "disconnected";
+      });
+    } else {
+      // TODO: Need to do something with this.
+      onCloseWithError_(e);
+    }
+  };
+
+  const onMessage = (e: MessageEvent) => {
+    console.log("Received mesage from opsdroid", e);
+    // TODO: Should we use "e.isTrusted" here?
+    UIStore.update((s) => {
+      s.conversation.push({
+        text: e.data, // Is the text message as string
+        user: "opsdroid",
+        timestamp: new Date(),
+      });
+    });
+  };
+
+  const connect = (socket: string) => {
+    const url = generateConnectionURL(socket, "ws");
+    ws = new WebSocket(url);
+    // TODO: How should we handle timeouts and errors?
+    ws.onopen = () => {
+      console.log("Connected to WS");
+      UIStore.update((s) => {
+        s.connection.loadState.type = "connecting";
+      });
+    };
+    ws.onerror = onError;
+    ws.onopen = onOpen;
+    ws.onmessage = onMessage;
+    ws.onclose = onClose;
   };
 
   const disconnect = (code: number, reason: string) => {
@@ -87,17 +133,23 @@ export const WebsocketClient = (): WebsocketConnector => {
 
   const send = (message: MessageType) => {
     if (ws && ws.readyState === clientReadyState.OPEN) {
-      ws.send(JSON.stringify(message));
+      ws.send(message.text);
     } else {
       const readyState = ws ? clientReadyState[ws.readyState] : "CLOSED";
       const message = `Unable to send message, state is: ${readyState}`;
       console.error(message);
 
       UIStore.update((s) => {
-        s.connection.loadState = {
-          type: "error",
-          error: "Not connected",
-          data: message,
+        s.connection = {
+          ...s.connection,
+          // TODO: Should this be simply disconnected instead?
+          loadState: {
+            type: "error",
+            error: "Not connected",
+            data: message,
+          },
+          connected: false,
+          client: undefined,
         };
       });
     }
@@ -108,17 +160,4 @@ export const WebsocketClient = (): WebsocketConnector => {
     disconnect,
     send,
   };
-};
-
-export const WTF = () => {
-  const Blah = () => {
-    const ws = WebsocketClient();
-    ws.connect();
-    console.log("Websocket his: ", ws);
-  };
-  return (
-    <React.Fragment>
-      <input type="submit" id="connect" value="Connect" onClick={Blah} />
-    </React.Fragment>
-  );
 };

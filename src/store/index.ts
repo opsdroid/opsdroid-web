@@ -9,7 +9,7 @@ export type ConnectedType = { type: "connected" };
 export type ConnectionErrorType = {
   type: "error";
   error: string;
-  data?: string;
+  data?: object | string;
 };
 
 export type ClientSettings = {
@@ -63,11 +63,6 @@ export const UIStore = new Store<AppState>({
 UIStore.createReaction(
   (s) => s.connection,
   (original, previousState, draft) => {
-    // TODO: Remove once we know its working
-    console.log("original is: ", original);
-    console.log("previous state is: ", previousState);
-    console.log("draft is: ", draft);
-
     // Only create the backoff when connection.cooldown increases
     if (original.loadState.type === "connecting") {
       if (original.cooldown >= previousState.connection.cooldown) {
@@ -92,5 +87,18 @@ UIStore.createReaction(
     settings.set("port", String(original.port));
     settings.set("sslEnabled", String(original.sslEnabled));
     // TODO: We shouldn't need to update the values in draft right?
+  }
+);
+
+UIStore.createReaction(
+  (s) => s.conversation,
+  (watched, draft, original, lastWatched) => {
+    if (watched.length > lastWatched.length) {
+      const lastMessage = watched[watched.length - 1];
+      if (lastMessage.user === "user" && original.connection.client) {
+        console.log("Sending message");
+        original.connection.client.send(lastMessage);
+      }
+    }
   }
 );
