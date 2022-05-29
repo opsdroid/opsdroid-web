@@ -1,5 +1,6 @@
 import { MessageType } from "../types";
 import { UIStore } from "../store";
+import React from "react";
 
 export type WebsocketConnector = {
   connect: () => void;
@@ -21,23 +22,27 @@ enum clientReadyState {
 export const WebsocketClient = (): WebsocketConnector => {
   let ws: WebSocket | undefined;
 
-  const {
-    host,
-    port,
-    sslEnabled,
-    // cooldown,
-    // timeout,
-    // client,
-    // connected
-  } = UIStore.useState((s) => ({
-    host: s.clientSettings.host,
-    port: s.clientSettings.port,
-    sslEnabled: s.clientSettings.sslEnabled,
-    // cooldown: s.connection.cooldown,
-    // timeout: s.connection.timeout,
-    // client: s.connection.client,
-    // connected: s.connection.connected,
-  }));
+  // FIXME: Need to fix this, can't use this hook and `UIStore.update()`
+  // const {
+  //   host,
+  //   port,
+  //   sslEnabled,
+  //   // cooldown,
+  //   // timeout,
+  //   // client,
+  //   // connected
+  // } = UIStore.useState((s) => ({
+  //   host: s.clientSettings.host,
+  //   port: s.clientSettings.port,
+  //   sslEnabled: s.clientSettings.sslEnabled,
+  //   // cooldown: s.connection.cooldown,
+  //   // timeout: s.connection.timeout,
+  //   // client: s.connection.client,
+  //   // connected: s.connection.connected,
+  // }));
+  const sslEnabled = false;
+  const host = "localhost";
+  const port = "8080";
 
   const generateConnectionURL = (): string => {
     const protocol: string = sslEnabled ? "wss" : "ws";
@@ -46,9 +51,10 @@ export const WebsocketClient = (): WebsocketConnector => {
 
   const connect = () => {
     const url = generateConnectionURL();
+    console.log(url);
     ws = new WebSocket(url);
     // TODO: Handle error and state change
-
+    console.log("WebsocketClient his: ", ws);
     UIStore.update((s) => {
       s.connection.connected = true;
     });
@@ -102,4 +108,17 @@ export const WebsocketClient = (): WebsocketConnector => {
     disconnect,
     send,
   };
+};
+
+export const WTF = () => {
+  const Blah = () => {
+    const ws = WebsocketClient();
+    ws.connect();
+    console.log("Websocket his: ", ws);
+  };
+  return (
+    <React.Fragment>
+      <input type="submit" id="connect" value="Connect" onClick={Blah} />
+    </React.Fragment>
+  );
 };

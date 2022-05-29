@@ -27,6 +27,16 @@ export const ConnectionSettings = (): React.ReactElement => {
     });
   };
 
+  const connectToWebsockets = () => {
+    console.log("This is broken");
+    // const ws = WebsocketClient().connect();
+
+    // UIStore.update((s) => {
+    //   s.connection.connected = true;
+    //   s.connection.client = ws as any;
+    // });
+  };
+
   return (
     <div
       id="connection-settings"
@@ -53,7 +63,7 @@ export const ConnectionSettings = (): React.ReactElement => {
         type="submit"
         id="connect"
         value="Connect"
-        // onClick={props.reconnectToWebSocketImmediately}
+        onClick={connectToWebsockets}
       />
     </div>
   );
