@@ -41,13 +41,15 @@ export const Prompt = (): React.ReactElement => {
 
   const handleSend = () => {
     if (connected) {
-      UIStore.update((s) => {
-        s.conversation.push({
-          text: input.text,
-          user: "user",
-          timestamp: new Date(),
+      if (input.text.length > 0) {
+        UIStore.update((s) => {
+          s.conversation.push({
+            text: input.text,
+            user: "user",
+            timestamp: new Date(),
+          });
         });
-      });
+      }
       setInput({
         ...input,
         text: "",

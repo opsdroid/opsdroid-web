@@ -1,5 +1,6 @@
 import { UIStore } from "../store";
 import { MessageType } from "../types";
+import React, { useRef, useEffect } from "react";
 
 interface MessageProps {
   message: MessageType;
@@ -10,8 +11,6 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
     return timestamp.toTimeString().replace(/.*(\d{2}:\d{2}):\d{2}.*/, "$1");
   };
 
-  //TODO: Think about this, should we always include the user name?
-
   return (
     <div className="message">
       {message.image && (
@@ -21,11 +20,17 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
         />
       )}
       {message.text != message.image && (
-        <li className={message.user}>{message.text}</li>
+        <li className={message.user !== "opsdroid" ? "user" : message.user}>
+          {message.text}
+        </li>
       )}
       <li className="clearfix" />
       {message.user != "info" && (
-        <li className={`${message.user} timestamp`}>
+        <li
+          className={`${
+            message.user !== "opsdroid" ? "user" : message.user
+          } timestamp`}
+        >
           {getTime(message.timestamp)}
         </li>
       )}
@@ -38,17 +43,31 @@ export const Conversation = () => {
   const { conversation } = UIStore.useState((s) => ({
     conversation: s.conversation,
   }));
+  const messagesRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "end",
+      });
+    }
+  };
 
-  // TODO: Make sure we always scroll down to show messages, previously we had:
-  // componentDidUpdate() {
-  //   window.scrollTo(0, document.body.scrollHeight);
-  // }
+  useEffect(() => {
+    scrollToBottom();
+
+    return () => scrollToBottom();
+  }, [conversation]);
 
   return (
-    <div className="conversation">
-      {conversation.map((message: MessageType, index: number) => (
-        <Message message={message} key={index} />
-      ))}
-    </div>
+    <React.Fragment>
+      <div className="conversation" ref={messagesRef}>
+        {conversation.map((message: MessageType, index: number) => (
+          <Message message={message} key={index} />
+        ))}
+      </div>
+      <div ref={messagesRef} />
+    </React.Fragment>
   );
 };

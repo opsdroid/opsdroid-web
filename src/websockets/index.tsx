@@ -26,12 +26,14 @@ export const generateConnectionURL = (
   connectionType: "http" | "ws"
 ): string => {
   let protocol: string;
-  if (connectionType === "ws") {
+  let urlPath = `${host}:${port}/connector/websocket`;
+  if (connectionType === "ws" && socket) {
     protocol = sslEnabled ? "wss" : "ws";
+    urlPath = `${urlPath}/${socket}`;
   } else {
     protocol = sslEnabled ? "https" : "http";
   }
-  return `${protocol}://${host}:${port}/connector/websocket/${socket}`;
+  return `${protocol}://${urlPath}`;
 };
 
 export const WebsocketClient = (): WebsocketConnector => {
@@ -136,7 +138,7 @@ export const WebsocketClient = (): WebsocketConnector => {
       ws.send(message.text);
     } else {
       const readyState = ws ? clientReadyState[ws.readyState] : "CLOSED";
-      const message = `Unable to send message, state is: ${readyState}`;
+      const message = `Unable to send message, state is: ${readyState} `;
       console.error(message);
 
       UIStore.update((s) => {

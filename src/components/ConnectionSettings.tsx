@@ -30,8 +30,7 @@ export const ConnectionSettings = (): React.ReactElement => {
 
   const connectToWebsockets = () => {
     const url = generateConnectionURL("", "http");
-    console.log(url);
-    fetch(`http://${host}:${port}/connector/websocket`, { method: "POST" })
+    fetch(url, { method: "POST", mode: "cors" })
       .then((response) => {
         if (response.status === 200) {
           return response.json();
