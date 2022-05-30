@@ -96,7 +96,6 @@ UIStore.createReaction(
     if (watched.length > lastWatched.length) {
       const lastMessage = watched[watched.length - 1];
       if (lastMessage.user === "user" && original.connection.client) {
-        console.log("Sending message");
         original.connection.client.send(lastMessage);
       }
     }

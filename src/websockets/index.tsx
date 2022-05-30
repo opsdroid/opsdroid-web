@@ -1,6 +1,7 @@
 import { MessageType } from "../types";
 import { UIStore } from "../store";
 import * as settings from "browser-cookies";
+import { expandMessage } from "../utils/message";
 
 export type WebsocketConnector = {
   connect: (socket: string) => void;
@@ -81,15 +82,28 @@ export const WebsocketClient = (): WebsocketConnector => {
   };
 
   const onMessage = (e: MessageEvent) => {
-    console.log("Received mesage from opsdroid", e);
+    const isImage = expandMessage(e.data);
     // TODO: Should we use "e.isTrusted" here?
-    UIStore.update((s) => {
-      s.conversation.push({
-        text: e.data, // Is the text message as string
-        user: "opsdroid",
-        timestamp: new Date(),
+    if (isImage) {
+      isImage.then((imageUrl) => {
+        UIStore.update((s) => {
+          s.conversation.push({
+            text: e.data, // Is the text message as string
+            user: "opsdroid",
+            timestamp: new Date(),
+            image: imageUrl,
+          });
+        });
       });
-    });
+    } else {
+      UIStore.update((s) => {
+        s.conversation.push({
+          text: e.data, // Is the text message as string
+          user: "opsdroid",
+          timestamp: new Date(),
+        });
+      });
+    }
   };
 
   const connect = (socket: string) => {

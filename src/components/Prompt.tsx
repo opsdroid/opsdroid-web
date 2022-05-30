@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { UIStore } from "../store";
+import { expandMessage } from "../utils/message";
 
 type inputState = {
   //TODO: This should really be message!
@@ -42,13 +43,27 @@ export const Prompt = (): React.ReactElement => {
   const handleSend = () => {
     if (connected) {
       if (input.text.length > 0) {
-        UIStore.update((s) => {
-          s.conversation.push({
-            text: input.text,
-            user: "user",
-            timestamp: new Date(),
+        const isImage = expandMessage(input.text);
+        if (isImage) {
+          isImage.then((imageUrl) => {
+            UIStore.update((s) => {
+              s.conversation.push({
+                text: input.text,
+                user: "user",
+                timestamp: new Date(),
+                image: imageUrl,
+              });
+            });
           });
-        });
+        } else {
+          UIStore.update((s) => {
+            s.conversation.push({
+              text: input.text,
+              user: "user",
+              timestamp: new Date(),
+            });
+          });
+        }
       }
       setInput({
         ...input,

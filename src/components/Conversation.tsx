@@ -10,29 +10,26 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
   const getTime = (timestamp: Date): string => {
     return timestamp.toTimeString().replace(/.*(\d{2}:\d{2}):\d{2}.*/, "$1");
   };
-
+  const user = message.user !== "opsdroid" ? "user" : message.user;
   return (
     <div className="message">
       {message.image && (
-        <li
-          className={`${message.user} image`}
-          style={{ backgroundImage: `url(${message.image})` }}
-        />
+        <li className={user}>
+          <a className="image-url" href={message.text}>
+            {message.text}
+          </a>
+          <li
+            className={`${user} image`}
+            style={{ backgroundImage: `url(${message.image})` }}
+          />
+        </li>
       )}
       {message.text != message.image && (
-        <li className={message.user !== "opsdroid" ? "user" : message.user}>
-          {message.text}
-        </li>
+        <li className={user}>{message.text}</li>
       )}
       <li className="clearfix" />
       {message.user != "info" && (
-        <li
-          className={`${
-            message.user !== "opsdroid" ? "user" : message.user
-          } timestamp`}
-        >
-          {getTime(message.timestamp)}
-        </li>
+        <li className={`${user} timestamp`}>{getTime(message.timestamp)}</li>
       )}
       <li className="clearfix" />
     </div>
