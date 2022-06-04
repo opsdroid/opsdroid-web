@@ -60,21 +60,21 @@ export const UIStore = new Store<AppState>({
 
 // TODO: Add reaction for backoff
 
-UIStore.createReaction(
-  (s) => s.connection,
-  (original, previousState, draft) => {
-    // Only create the backoff when connection.cooldown increases
-    if (original.loadState.type === "connecting") {
-      if (original.cooldown >= previousState.connection.cooldown) {
-        draft.connection.timeout = original.cooldown * 2 * 1000;
-      } else if (original.cooldown === 1) {
-        draft.connection.timeout = 1000;
-      }
-    }
+// UIStore.createReaction(
+//   (s) => s.connection,
+//   (original, previousState, draft) => {
+//     // Only create the backoff when connection.cooldown increases
+//     if (original.loadState.type === "connecting") {
+//       if (original.cooldown >= previousState.connection.cooldown) {
+//         draft.connection.timeout = original.cooldown * 2 * 1000;
+//       } else if (original.cooldown === 1) {
+//         draft.connection.timeout = 1000;
+//       }
+//     }
 
-    // TODO: Probably we should handle other connection things here right?
-  }
-);
+//     // TODO: Probably we should handle other connection things here right?
+//   }
+// );
 
 UIStore.createReaction(
   (s) => s.clientSettings,

@@ -28,12 +28,12 @@
     height: $status-indicator-size;
     width: $status-indicator-size;
     background-color: $opsdroid-grey;
-    bottom: ($prompt-height / 2) - ($status-indicator-size / 2);
+    bottom: calc($prompt-height / 2) - calc($status-indicator-size / 2);
     right: $send-width + ($status-indicator-size * 2);
 
     #status-indicator-tooltip {
       visibility: hidden;
-      // width: 120px;
+      width: 120px;
       background-color: black;
       color: #fff;
       text-align: center;
@@ -43,7 +43,7 @@
       /* Position the tooltip text - see examples below! */
       position: absolute;
       z-index: 1;
-      top: -5px - ($status-indicator-size / 2);
+      top: calc(-5px - calc($status-indicator-size / 2));
       right: 120%;
     }
 

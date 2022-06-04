@@ -108,14 +108,11 @@ export const WebsocketClient = (): WebsocketConnector => {
 
   const connect = (socket: string) => {
     const url = generateConnectionURL(socket, "ws");
+    UIStore.update((s) => {
+      s.connection.loadState.type = "connecting";
+    });
     ws = new WebSocket(url);
     // TODO: How should we handle timeouts and errors?
-    ws.onopen = () => {
-      console.log("Connected to WS");
-      UIStore.update((s) => {
-        s.connection.loadState.type = "connecting";
-      });
-    };
     ws.onerror = onError;
     ws.onopen = onOpen;
     ws.onmessage = onMessage;

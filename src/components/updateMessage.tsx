@@ -15,15 +15,15 @@ export const UpdateMessage = () => {
     name: "",
   });
 
-  // useEffect(() => {
-  //   if (!latestVersion.checkedForUpdate) {
-  //     checkForUpdates();
-  //   }
+  useEffect(() => {
+    if (!latestVersion.checkedForUpdate) {
+      checkForUpdates();
+    }
 
-  //   return () => {
-  //     checkForUpdates();
-  //   };
-  // }, []);
+    return () => {
+      checkForUpdates();
+    };
+  }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
