@@ -3,6 +3,9 @@ import { render, screen } from "@testing-library/react";
 import App from "../App";
 
 test("renders learn react link", () => {
+  window.HTMLElement.prototype.scrollIntoView = function () {
+    console.log("scrolled down");
+  };
   const { container } = render(<App />);
   // Confirm that the prompt was loaded successfully
   const prompt = screen.getByPlaceholderText("Say something...");

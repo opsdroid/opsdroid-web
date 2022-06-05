@@ -23,6 +23,12 @@ test("renders message correctly", () => {
 });
 
 test("renders conversation section correctly", () => {
+  // We need this because otherwise the test fails because
+  //  messagesRef.current.scrollIntoView is not a function
+  // https://stackoverflow.com/questions/53271193/typeerror-scrollintoview-is-not-a-function
+  window.HTMLElement.prototype.scrollIntoView = function () {
+    console.log("scrolled down");
+  };
   const { container } = render(<Conversation />);
 
   // Very basic test that just confirms that the component was rendered correctly
