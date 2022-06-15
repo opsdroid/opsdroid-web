@@ -1,0 +1,26 @@
+repos:
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        language: node
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
+        entry: "sh -c 'cd src && (yarn check --verify-tree || yarn --mutex network) && yarn lint'"
+  - repo: local
+    hooks:
+      - id: tsc
+        name: tsc
+        entry: "sh -c 'cd src && (yarn check --verify-tree || yarn --mutex network) && yarn run build-check && cd ..'"
+        pass_filenames: False
+        language: node
+        files: ".[tj]sx?$"
+  - repo: local
+    hooks:
+      - id: lintfix
+        name: lintfix
+        entry: "yarn lintfix"
+        language: node
+        files: \.[jt]sx?$ 
+        types: [file]
+

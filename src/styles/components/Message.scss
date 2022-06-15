@@ -6,7 +6,7 @@
     padding: 10px;
     max-width: 60%;
     border-radius: 10px;
-    display:block;
+    display: block;
     white-space: pre-wrap;
     word-break: break-word;
   }
@@ -25,21 +25,32 @@
     background-color: $opsdroid-blue;
     color: white;
     border-bottom-right-radius: 0px;
+
+    .image-url {
+      color: white;
+    }
   }
 
-  li.bot {
+  li.opsdroid {
     float: left;
     background-color: $opsdroid-grey;
     color: black;
     border-bottom-left-radius: 0px;
+
+    .image-url {
+      color: black;
+    }
   }
 
   li.image {
     content: '';
     display: block;
+    margin-top: .5rem;
     padding-top: 45%;
-    min-width: 45%;
-    background-size: cover;
+    min-width: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   li.info {
@@ -52,7 +63,7 @@
     color: $opsdroid-grey-dark;
   }
 
-  li.time {
+  li.timestamp {
     background-color: transparent;
     font-size: 0.8em;
     color: $opsdroid-grey-dark;

@@ -1,40 +1,70 @@
 {
   "name": "opsdroid-web",
-  "version": "0.1.0",
-  "description": "A web client for speaking to opsdroid.",
+  "version": "0.2.0",
+  "description": "A web client for interacting with opsdroid.",
   "repository": "https://github.com/opsdroid/opsdroid-web",
-  "main": "src/js/index.js",
-  "scripts": {
-    "start": "webpack-dev-server --open --mode development",
-    "test": "webpack --mode production",
-    "build": "webpack --mode production"
-  },
-  "keywords": [],
+  "keywords": [
+    "opsdroid",
+    "events",
+    "chatops",
+    "chatbot",
+    "bot"
+  ],
   "author": "Jacob Tomlinson <jacob@tomlinson.email> (http://www.jacobtomlinson.co.uk/)",
+  "contributors": [
+    "Fabio Rosado <hello@fabiorosado.dev> (http://www.fabiorosado.dev)"
+  ],
   "license": "Apache-2.0",
-  "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5",
-    "css-loader": "^3.0.0",
-    "file-loader": "^4.3.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "image-webpack-loader": "^5.0.0",
-    "node-sass": "^4.11.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "sass-loader": "^8.0.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1",
-    "webpack-dev-server": "^3.3.1"
-  },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "browser-cookies": "^1.2.0",
-    "md5": "^2.2.1",
-    "request": "^2.88.0",
-    "websocket": "^1.0.28"
+    "pullstate": "^1.24.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-scripts": "5.0.1",
+    "sass": "^1.52.1",
+    "typescript": "^4.6.4",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build-check": "tsc --noEmit",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lintfix": "eslint --fix src/"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2"
   }
 }
