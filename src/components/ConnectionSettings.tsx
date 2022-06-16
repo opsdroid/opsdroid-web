@@ -1,6 +1,6 @@
 import React from "react";
 import { UIStore } from "../store";
-import { WebsocketClient, generateConnectionURL } from "../websockets";
+import { connectToWebsocket } from "../websockets";
 
 export const ConnectionSettings = (): React.ReactElement => {
   const { host, port, sslEnabled, showSettings } = UIStore.useState((s) => ({
@@ -26,29 +26,6 @@ export const ConnectionSettings = (): React.ReactElement => {
     UIStore.update((s) => {
       s.clientSettings.host = e.currentTarget.value;
     });
-  };
-
-  const connectToWebsockets = () => {
-    const url = generateConnectionURL("", "http");
-    fetch(url, { method: "POST", mode: "cors" })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          console.error(
-            `Received ${response.status} from opsdroid. Unable to connect to websocket.`
-          );
-        }
-      })
-      .then((wsSocket) => {
-        if (wsSocket) {
-          const ws = WebsocketClient();
-          ws.connect(wsSocket.socket);
-          UIStore.update((s) => {
-            s.connection.client = ws;
-          });
-        }
-      });
   };
 
   return (
@@ -77,7 +54,7 @@ export const ConnectionSettings = (): React.ReactElement => {
         type="submit"
         id="connect"
         value="Connect"
-        onClick={connectToWebsockets}
+        onClick={connectToWebsocket}
       />
     </div>
   );

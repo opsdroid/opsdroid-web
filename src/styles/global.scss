@@ -1,7 +1,7 @@
 @import 'vars';
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 * {
@@ -43,4 +43,14 @@ input[type=submit] {
   padding: 0;
   margin: 0;
   background-color: $opsdroid-grey-medium;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  height: $prompt-height;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
 }
