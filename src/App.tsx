@@ -1,15 +1,16 @@
 import React from "react";
-// import "./App.css";
+
 import "./styles/index.scss";
 import { ConnectionSettings } from "./components/ConnectionSettings";
 import { Prompt } from "./components/Prompt";
 import { Conversation } from "./components/Conversation";
 import { UpdateMessage } from "./components/updateMessage";
+import { NavBar } from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <NavBar />
       <UpdateMessage />
       <ConnectionSettings />
       <Conversation />

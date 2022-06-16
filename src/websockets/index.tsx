@@ -3,6 +3,29 @@ import { UIStore } from "../store";
 import * as settings from "browser-cookies";
 import { expandMessage } from "../utils/message";
 
+export const connectToWebsocket = () => {
+  const url = generateConnectionURL("", "http");
+  fetch(url, { method: "POST", mode: "cors" })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        console.error(
+          `Received ${response.status} from opsdroid. Unable to connect to websocket.`
+        );
+      }
+    })
+    .then((wsSocket) => {
+      if (wsSocket) {
+        const ws = WebsocketClient();
+        ws.connect(wsSocket.socket);
+        UIStore.update((s) => {
+          s.connection.client = ws;
+        });
+      }
+    });
+};
+
 export type WebsocketConnector = {
   connect: (socket: string) => void;
   disconnect: (code: number, reason: string) => void;
