@@ -28,20 +28,25 @@ export const NavBar = (): React.ReactElement => {
   return (
     <header className="navbar">
       <Logo className="logo" />
-      <button onClick={() => connectIfNeeded(client)}>
-        {connected ? (
-          <>
-            <BxLinkIcon /> {"Connected"}
-          </>
-        ) : (
-          <>
-            <BxUnlinkIcon /> {"Disconnected"}
-          </>
-        )}
-      </button>
-      <button onClick={toggleSettings}>
-        <SettingsSharpIcon className="settingsIcon" />
-      </button>
+      <div className="navbar-right">
+        <button
+          className="connectionButton"
+          onClick={() => connectIfNeeded(client)}
+        >
+          {connected ? (
+            <>
+              <BxLinkIcon className="icon" /> {"Connected"}
+            </>
+          ) : (
+            <>
+              <BxUnlinkIcon className="icon" /> {"Disconnected"}
+            </>
+          )}
+        </button>
+        <button className="settingsButton" onClick={toggleSettings}>
+          <SettingsSharpIcon className={showSettings ? "open icon" : "icon"} />
+        </button>
+      </div>
     </header>
   );
 };

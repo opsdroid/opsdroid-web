@@ -8,14 +8,40 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 .5rem;
+
+
+    .icon {
+        color: $tertiary;
+        width: 20px;
+        height: 20px;
+        margin-right: .2rem;
+    }
+
+    .open {
+        color: lighten($primary, 20%);
+    }
+
+
+
+
+    .navbar-right {
+        display: flex;
+
+        .connectionButton {
+            color: $tertiary;
+            display: flex;
+            align-items: center;
+            margin-right: $spacing;
+        }
+
+        .settingsButton {
+            margin-right: $spacing;
+        }
+
+
+    }
 }
 
 .logo {
     height: 50px;
-}
-
-.settingsIcon {
-    color: $tertiary;
-    width: 20px;
-    height: 20px;
 }

@@ -1,6 +1,7 @@
 $prompt-height: 40px;
 $send-width: 60px;
 $status-indicator-size: 8px;
+$spacing: 1rem;
 
 // Colours
 $opsdroid-grey: #ebebeb;
@@ -8,4 +9,6 @@ $opsdroid-grey-medium: darken($opsdroid-grey, 10%);
 $opsdroid-grey-dark: darken($opsdroid-grey, 30%);
 $opsdroid-grey-light: lighten($opsdroid-grey, 2%);
 $opsdroid-blue: #176587;
+$primary: #176587;
+
 $tertiary: #FFFF;
