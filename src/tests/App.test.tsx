@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
 
-test("renders learn react link", () => {
+test("renders app succssfully", () => {
   window.HTMLElement.prototype.scrollIntoView = function () {
     console.log("scrolled down");
   };
@@ -15,9 +15,9 @@ test("renders learn react link", () => {
   expect(container.getElementsByClassName("conversation").length).toBe(1);
 
   // Confirm that connection settings were loaded successfully
-  const submitButton = screen.getByDisplayValue("Connect");
+  const submitButton = screen.getByRole("toggleSSL");
   expect(submitButton).toBeInTheDocument();
 
-  const protocol = screen.getByText("http://");
+  const protocol = screen.getByPlaceholderText("localhost");
   expect(protocol).toBeInTheDocument();
 });

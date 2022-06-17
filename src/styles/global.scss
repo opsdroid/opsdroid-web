@@ -12,6 +12,12 @@ body {
   font-size: 12px;
   font-family: sans-serif;
   margin: 0;
+  letter-spacing: .03em;
+  line-height: 1.6;
+}
+
+h2 {
+  font-size: 1.2em;
 }
 
 img.banner {
@@ -22,17 +28,19 @@ img.banner {
   z-index: -1;
 }
 
-input[type=text] {
-  height: $prompt-height;
+input {
+  height: $input-height;
+  background-color: $grey;
+  color: $primary;
   padding: 0;
   padding-left: 10px;
   margin: 0;
-
   border: 0;
-  border-radius: 0;
   outline: none;
-
-  background-color: $opsdroid-grey;
+  border-radius: 5px;
+  &::-webkit-input-placeholder {
+    color: $primary;
+  }
 }
 
 input[type=submit] {
@@ -53,4 +61,28 @@ button {
   padding: 0;
   margin: 0;
   background-color: transparent;
+}
+
+.padding-left {
+  padding-left: $spacing;
+}
+
+.padding-right {
+  padding-right: $spacing;
+}
+
+.padding-top {
+  padding-top: $spacing;
+}
+
+.padding-bottom {
+  padding-bottom: $spacing;
+}
+
+.inactive {
+  display: none;
+}
+
+.active {
+  display: block;
 }

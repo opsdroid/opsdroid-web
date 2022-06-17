@@ -17,6 +17,7 @@ export type ClientSettings = {
   port: string;
   sslEnabled: boolean;
   showSettings: boolean;
+  token?: string;
 };
 
 export type ConnectionState =
@@ -33,10 +34,17 @@ export type Connection = {
   connected: boolean;
 };
 
+export type Appearance = {
+  darkTheme: boolean;
+  accentColor: "blue" | "green";
+};
+
 export type AppState = {
   clientSettings: ClientSettings;
   connection: Connection;
   conversation: Array<MessageType>;
+  username: string;
+  appearance: Appearance;
 };
 
 export const UIStore = new Store<AppState>({
@@ -45,6 +53,7 @@ export const UIStore = new Store<AppState>({
     port: settings.get("port") || "8080",
     sslEnabled: settings.get("sslEnabled") === "true" || false,
     showSettings: false,
+    token: settings.get("token") || undefined,
   },
   connection: {
     loadState: { type: "disconnected" },
@@ -54,27 +63,14 @@ export const UIStore = new Store<AppState>({
     connected: false,
   },
   conversation: [],
+  username: "user",
+  appearance: {
+    darkTheme: false,
+    accentColor: "blue",
+  },
 });
 
-// TODO: Add reactions for state change
-
-// TODO: Add reaction for backoff
-
-// UIStore.createReaction(
-//   (s) => s.connection,
-//   (original, previousState, draft) => {
-//     // Only create the backoff when connection.cooldown increases
-//     if (original.loadState.type === "connecting") {
-//       if (original.cooldown >= previousState.connection.cooldown) {
-//         draft.connection.timeout = original.cooldown * 2 * 1000;
-//       } else if (original.cooldown === 1) {
-//         draft.connection.timeout = 1000;
-//       }
-//     }
-
-//     // TODO: Probably we should handle other connection things here right?
-//   }
-// );
+// Reactions for state change
 
 UIStore.createReaction(
   (s) => s.clientSettings,
@@ -86,7 +82,9 @@ UIStore.createReaction(
     settings.set("host", original.host);
     settings.set("port", String(original.port));
     settings.set("sslEnabled", String(original.sslEnabled));
-    // TODO: We shouldn't need to update the values in draft right?
+    if (original.token) {
+      settings.set("token", String(original.token));
+    }
   }
 );
 

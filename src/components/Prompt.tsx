@@ -101,7 +101,7 @@ export const Prompt = (): React.ReactElement => {
   };
 
   return (
-    <div className="prompt">
+    <div className={showSettings ? "prompt inactive" : "prompt active"}>
       <input
         type="text"
         ref={promptRef}
@@ -116,11 +116,11 @@ export const Prompt = (): React.ReactElement => {
       <span
         id="status-indicator"
         onClick={toggleConnectionSettings}
-        className={connected ? "active" : "inactive"}
+        className={connected ? "show" : "hide"}
       >
         <span
           id="status-indicator-tooltip"
-          className={input.showTooltip ? "active" : "inactive"}
+          className={input.showTooltip ? "show" : "inactive"}
         >
           {connected ? "connected" : "disconnected"}
         </span>

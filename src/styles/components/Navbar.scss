@@ -9,7 +9,6 @@
     align-items: center;
     padding: 0 .5rem;
 
-
     .icon {
         color: $tertiary;
         width: 20px;
@@ -20,9 +19,6 @@
     .open {
         color: lighten($primary, 20%);
     }
-
-
-
 
     .navbar-right {
         display: flex;
@@ -37,7 +33,6 @@
         .settingsButton {
             margin-right: $spacing;
         }
-
 
     }
 }
