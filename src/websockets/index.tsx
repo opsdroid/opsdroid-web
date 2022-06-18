@@ -102,7 +102,19 @@ export const WebsocketClient = (): WebsocketConnector => {
   let ws: WebSocket | undefined;
 
   const onCloseWithError_ = (e: CloseEvent) => {
-    console.log(e);
+    const reason = e.reason
+      ? e.reason
+      : "No reason provided. Did you lose connection with the server?";
+    console.error(reason);
+
+    // TODO: We should perhaps add a reconnect logic here
+
+    UIStore.update((s) => {
+      s.connection = {
+        ...s.connection,
+        ...updateConnectionStateWithError(reason, e),
+      };
+    });
   };
 
   const onOpen = () => {
