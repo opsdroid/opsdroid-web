@@ -22,9 +22,10 @@
 
   li.user {
     float: right;
-    background-color: $opsdroid-blue;
+    background-color: $primary-medium;
     color: white;
-    border-bottom-right-radius: 0px;
+    // border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
 
     .image-url {
       color: white;
@@ -33,9 +34,12 @@
 
   li.opsdroid {
     float: left;
-    background-color: $opsdroid-grey;
-    color: black;
-    border-bottom-left-radius: 0px;
+    background-color: $grey;
+    color: $primary;
+    // border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+
+
 
     .image-url {
       color: black;
