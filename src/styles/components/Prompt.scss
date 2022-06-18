@@ -47,7 +47,7 @@
       right: 120%;
     }
 
-    #status-indicator-tooltip.active {
+    #status-indicator-tooltip.show {
       visibility: visible;
     }
 
@@ -70,7 +70,7 @@
     }
   }
 
-  #status-indicator.active {
+  #status-indicator.show {
     background-color: $opsdroid-grey-dark;
   }
 }

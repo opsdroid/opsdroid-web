@@ -1,33 +1,35 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ConnectionSettings } from "../components/ConnectionSettings";
+import { ConnectionSettings } from "../components/Settings/ConnectionSettings";
 
-test("renders settings in the page", () => {
+test("renders connection settings in the page", () => {
   render(<ConnectionSettings />);
+
+  const heading = screen.getByText("Connection Settings");
+  expect(heading).toBeInTheDocument();
+
   const portInput = screen.getByDisplayValue("8080");
   expect(portInput).toBeInTheDocument();
 
   const hostInput = screen.getByDisplayValue("localhost");
   expect(hostInput).toBeInTheDocument();
-
-  const submitButton = screen.getByDisplayValue("Connect");
-  expect(submitButton).toBeInTheDocument();
-
-  const protocol = screen.getByText("http://");
-  expect(protocol).toBeInTheDocument();
 });
 
-test("clicking to toggle ssl shows the right protocol", () => {
+test("clicking to toggle ssl sets the right protocol", () => {
   render(<ConnectionSettings />);
 
-  const sslEnabledButton = screen.getByText("http://");
+  const sslToggle = screen.getByRole("toggleSSL");
+  expect(sslToggle).toBeInTheDocument();
+  // This should be the default
+  expect(sslToggle).not.toBeChecked();
 
-  fireEvent.click(sslEnabledButton);
-  expect(sslEnabledButton).toHaveTextContent("https://");
+  fireEvent.click(sslToggle);
 
-  // Second click should turn https:// to http://
-  fireEvent.click(sslEnabledButton);
-  expect(sslEnabledButton).toHaveTextContent("http://");
+  // We are just assuming that this just works.
+  expect(sslToggle).toBeChecked();
+
+  fireEvent.click(sslToggle);
+  expect(sslToggle).not.toBeChecked();
 });
 
 test("updating port shows the right port in input", () => {
@@ -65,4 +67,3 @@ test("Previously updated host should still be set", () => {
   });
   expect(screen.getByDisplayValue("8080")).toBeInTheDocument();
 });
-// TODO: Add test for showing/hiding settings

@@ -1,11 +1,40 @@
 import { MessageType } from "../types";
-import { UIStore } from "../store";
+import { UIStore, PartialConnectionState } from "../store";
 import * as settings from "browser-cookies";
 import { expandMessage } from "../utils/message";
 
+// interface headersInit {
+//   [key: string]: string;
+// }
+
+const updateConnectionStateWithError = (
+  error: string,
+  data?: string | object
+): PartialConnectionState => {
+  return {
+    loadState: { type: "error", error: error, data: data },
+    connected: false,
+    client: undefined,
+  };
+};
+
 export const connectToWebsocket = () => {
   const url = generateConnectionURL("", "http");
-  fetch(url, { method: "POST", mode: "cors" })
+  // TODO: uncomment this once we dealt with the cors issue
+  // const headersInit = {
+  //   "Content-Type": "application/json",
+  // } as headersInit;
+  // const websocketToken = settings.get("token");
+  // if (websocketToken) {
+  //   headersInit["Authorization"] = `${websocketToken}`;
+  // }
+
+  // const headers = new Headers(headersInit);
+  fetch(url, {
+    method: "POST",
+    mode: "cors",
+    // headers: headers,
+  })
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -23,6 +52,15 @@ export const connectToWebsocket = () => {
           s.connection.client = ws;
         });
       }
+    })
+    .catch((err: Error) => {
+      UIStore.update((s) => {
+        s.connection = {
+          ...s.connection,
+          ...updateConnectionStateWithError(err.message, err),
+        };
+      });
+      console.error("Unable to connect to websocket", err);
     });
 };
 
@@ -64,7 +102,19 @@ export const WebsocketClient = (): WebsocketConnector => {
   let ws: WebSocket | undefined;
 
   const onCloseWithError_ = (e: CloseEvent) => {
-    console.log(e);
+    const reason = e.reason
+      ? e.reason
+      : "No reason provided. Did you lose connection with the server?";
+    console.error(reason);
+
+    // TODO: We should perhaps add a reconnect logic here
+
+    UIStore.update((s) => {
+      s.connection = {
+        ...s.connection,
+        ...updateConnectionStateWithError(reason, e),
+      };
+    });
   };
 
   const onOpen = () => {
@@ -97,6 +147,7 @@ export const WebsocketClient = (): WebsocketConnector => {
       UIStore.update((s) => {
         s.connection.connected = false;
         s.connection.loadState.type = "disconnected";
+        s.connection.client = undefined;
       });
     } else {
       // TODO: Need to do something with this.
@@ -169,7 +220,7 @@ export const WebsocketClient = (): WebsocketConnector => {
 
   const send = (message: MessageType) => {
     if (ws && ws.readyState === clientReadyState.OPEN) {
-      ws.send(message.text);
+      ws.send(JSON.stringify({ message: message.text, user: message.user }));
     } else {
       const readyState = ws ? clientReadyState[ws.readyState] : "CLOSED";
       const message = `Unable to send message, state is: ${readyState} `;
@@ -178,14 +229,7 @@ export const WebsocketClient = (): WebsocketConnector => {
       UIStore.update((s) => {
         s.connection = {
           ...s.connection,
-          // TODO: Should this be simply disconnected instead?
-          loadState: {
-            type: "error",
-            error: "Not connected",
-            data: message,
-          },
-          connected: false,
-          client: undefined,
+          ...updateConnectionStateWithError("Not connected", message),
         };
       });
     }

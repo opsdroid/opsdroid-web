@@ -3,8 +3,9 @@
 
 // Components
 @import 'components/Prompt';
-@import 'components/ConnectionSettings';
+@import 'components/Settings';
 @import 'components/Conversation';
 @import 'components/Message';
 @import 'components/UpdateMessage';
-@import 'components/Navbar.scss';
+@import 'components/Navbar';
+@import "flex";
