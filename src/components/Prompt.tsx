@@ -17,9 +17,10 @@ export const Prompt = (): React.ReactElement => {
       focus();
     };
   }, []);
-  const { connected, showSettings } = UIStore.useState((s) => ({
+  const { connected, showSettings, username } = UIStore.useState((s) => ({
     connected: s.connection.connected,
     showSettings: s.clientSettings.showSettings,
+    username: s.username,
   }));
   const [input, setInput] = useState<inputState>({
     text: "",
@@ -49,7 +50,7 @@ export const Prompt = (): React.ReactElement => {
             UIStore.update((s) => {
               s.conversation.push({
                 text: input.text,
-                user: "user",
+                user: username,
                 timestamp: new Date(),
                 image: imageUrl,
               });
@@ -59,7 +60,7 @@ export const Prompt = (): React.ReactElement => {
           UIStore.update((s) => {
             s.conversation.push({
               text: input.text,
-              user: "user",
+              user: username,
               timestamp: new Date(),
             });
           });

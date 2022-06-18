@@ -12,6 +12,12 @@ export type ConnectionErrorType = {
   data?: object | string;
 };
 
+export type PartialConnectionState = {
+  loadState: ConnectionState;
+  client?: WebsocketConnector;
+  connected: boolean;
+};
+
 export type ClientSettings = {
   host: string;
   port: string;
@@ -63,7 +69,7 @@ export const UIStore = new Store<AppState>({
     connected: false,
   },
   conversation: [],
-  username: "user",
+  username: settings.get("username") || "user",
   appearance: {
     darkTheme: false,
     accentColor: "blue",
@@ -93,9 +99,16 @@ UIStore.createReaction(
   (watched, draft, original, lastWatched) => {
     if (watched.length > lastWatched.length) {
       const lastMessage = watched[watched.length - 1];
-      if (lastMessage.user === "user" && original.connection.client) {
+      if (lastMessage.user !== "opsdroid" && original.connection.client) {
         original.connection.client.send(lastMessage);
       }
     }
+  }
+);
+
+UIStore.createReaction(
+  (s) => s.username,
+  (original) => {
+    settings.set("username", original);
   }
 );
