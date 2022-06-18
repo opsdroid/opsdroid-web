@@ -1,7 +1,7 @@
 # opsdroid web
 
-[![Build Status](https://travis-ci.com/opsdroid/opsdroid-web.svg?branch=master)](https://travis-ci.com/opsdroid/opsdroid-web)
-[![Greenkeeper badge](https://badges.greenkeeper.io/opsdroid/opsdroid-web.svg)](https://greenkeeper.io/)
+<a href="https://github.com/opsdroid/opsdroid-web/actions"><img src="https://github.com/opsdroid/opsdroid-web/workflows/CI/badge.svg?event=push&branch=main" alt="Github CI Status"></img></a>
+[![Known Vulnerabilities](https://snyk.io/test/github/opsdroid/opsdroid-web/badge.svg)]
 
 A browser based web app for chatting with [opsdroid](https://github.com/opsdroid/opsdroid).
 
@@ -56,7 +56,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `yarn lint`
 
-Runs eslint on all the files under `scr/` and informs you of any linting issues. 
+Runs eslint on all the files under `scr/` and informs you of any linting issues.
 
 ### `yarn lintfix`
 
@@ -64,7 +64,7 @@ Because fixing lint manually is so 2000, you can run this command to automatical
 
 ### `yarn build-check`
 
-Runs the typescript compiler to confirm that all files are typed correctly and don't have any issues. 
+Runs the typescript compiler to confirm that all files are typed correctly and don't have any issues.
 Note: This is the script run with pre-commit.
 
 ## Contributing
