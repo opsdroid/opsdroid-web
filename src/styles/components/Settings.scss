@@ -1,11 +1,10 @@
 @import "../vars";
 
 #settings {
-  // position: fixed;
+  position: fixed;
   min-height: 100vh;
   width: 100%;
   left: 0px;
-  bottom: $prompt-height;
   background-color: $tertiary;
   border-bottom: 1px solid $opsdroid-grey;
   padding: 0 $spacing;
