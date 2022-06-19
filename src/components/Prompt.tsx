@@ -34,25 +34,45 @@ export const Prompt = (): React.ReactElement => {
     historyIndex: 0,
   });
 
-  const getLastMessageFromIndex = (index: number) => {
-    let i = index - 1;
-    while (index !== 0) {
-      if (messages[i].user !== "opsdroid") {
-        return messages[i];
+  const getLastMessageFromIndex = (index: number, key: "up" | "down") => {
+    if (key === "up") {
+      let i = index - 1;
+      while (index !== 0) {
+        if (messages[i].user !== "opsdroid") {
+          return messages[i];
+        } else {
+          i--;
+        }
+      }
+    } else if (key === "down") {
+      let i;
+      if (index >= messages.length - 1) {
+        i = 1;
       } else {
-        i--;
+        i = index + 1;
+      }
+
+      while (index !== 0) {
+        console.log("I is:", i);
+        if (messages[i] && messages[i].user !== "opsdroid") {
+          return messages[i];
+        } else if (i >= messages.length - 1) {
+          i = 0;
+        } else {
+          i++;
+        }
       }
     }
   };
 
-  const toggleHistory = () => {
+  const toggleHistory = (key: "up" | "down") => {
     if (input.historyIndex === 0 && messages.length > 0) {
       setInput({
         ...input,
         historyIndex: messages.length - 1,
       });
     }
-    const lastMessage = getLastMessageFromIndex(input.historyIndex);
+    const lastMessage = getLastMessageFromIndex(input.historyIndex, key);
     if (lastMessage) {
       setInput({
         ...input,
@@ -69,7 +89,11 @@ export const Prompt = (): React.ReactElement => {
         handleSend();
         break;
       case "ArrowUp":
-        toggleHistory();
+        toggleHistory("up");
+        break;
+      case "ArrowDown":
+        toggleHistory("down");
+        break;
     }
   };
 
