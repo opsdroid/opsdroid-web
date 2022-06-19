@@ -58,11 +58,16 @@ export const NavBar = (): React.ReactElement => {
       <div className="navbar-right">
         <button
           className="connection-button"
+          role="connect"
           onClick={() => connectIfNeeded(client)}
         >
           {showConnectionState()}
         </button>
-        <button className="settings-button" onClick={toggleSettings}>
+        <button
+          className="settings-button"
+          role="toggleSettings"
+          onClick={toggleSettings}
+        >
           <SettingsSharpIcon className={showSettings ? "open icon" : "icon"} />
         </button>
       </div>
