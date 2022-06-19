@@ -8,6 +8,7 @@ type inputState = {
   //TODO: This should really be message!
   text: string;
   showTooltip: boolean;
+  historyIndex: number;
 };
 
 export const Prompt = (): React.ReactElement => {
@@ -19,20 +20,56 @@ export const Prompt = (): React.ReactElement => {
       focus();
     };
   }, []);
-  const { connected, showSettings, username } = UIStore.useState((s) => ({
-    connected: s.connection.connected,
-    showSettings: s.clientSettings.showSettings,
-    username: s.username,
-  }));
+  const { connected, showSettings, username, messages } = UIStore.useState(
+    (s) => ({
+      connected: s.connection.connected,
+      showSettings: s.clientSettings.showSettings,
+      username: s.username,
+      messages: s.conversation,
+    })
+  );
   const [input, setInput] = useState<inputState>({
     text: "",
     showTooltip: false,
+    historyIndex: 0,
   });
 
-  const checkForEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const getLastMessageFromIndex = (index: number) => {
+    let i = index - 1;
+    while (index !== 0) {
+      if (messages[i].user !== "opsdroid") {
+        return messages[i];
+      } else {
+        i--;
+      }
+    }
+  };
+
+  const toggleHistory = () => {
+    if (input.historyIndex === 0 && messages.length > 0) {
+      setInput({
+        ...input,
+        historyIndex: messages.length - 1,
+      });
+    }
+    const lastMessage = getLastMessageFromIndex(input.historyIndex);
+    if (lastMessage) {
+      setInput({
+        ...input,
+        text: lastMessage?.text || "",
+        historyIndex: messages.indexOf(lastMessage),
+      });
+    }
+  };
+
+  const checkForKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
-    if (event.key === "Enter" || event.keyCode === 13) {
-      handleSend();
+    switch (event.key) {
+      case "Enter":
+        handleSend();
+        break;
+      case "ArrowUp":
+        toggleHistory();
     }
   };
 
@@ -111,7 +148,7 @@ export const Prompt = (): React.ReactElement => {
           placeholder="Say something..."
           value={input.text}
           onChange={handleInput}
-          onKeyUp={checkForEnter}
+          onKeyUp={checkForKey}
         />
         <button
           onClick={handleSend}
