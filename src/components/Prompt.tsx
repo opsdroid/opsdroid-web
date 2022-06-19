@@ -149,6 +149,7 @@ export const Prompt = (): React.ReactElement => {
           value={input.text}
           onChange={handleInput}
           onKeyUp={checkForKey}
+          autoComplete="off"
         />
         <button
           onClick={handleSend}
