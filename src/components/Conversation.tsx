@@ -27,7 +27,7 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
           <p
             className={`username ${user !== "opsdroid" ? "invert" : "normal"}`}
           >
-            {user}{" "}
+            {message.user}{" "}
             <span className="timestamp">{getTime(message.timestamp)}</span>
           </p>
           {message.image && (

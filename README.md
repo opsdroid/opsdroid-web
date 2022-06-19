@@ -5,7 +5,7 @@
 
 A browser based web app for chatting with [opsdroid](https://github.com/opsdroid/opsdroid).
 
-![Screenshot](https://user-images.githubusercontent.com/1610850/56742336-73e49580-676c-11e9-896a-9df8adfab37d.png)
+![Screenshot](https://user-images.githubusercontent.com/3131401/174496947-dcd648e1-14ea-4d44-9850-f058d85e8054.png)
 
 ## Development
 
