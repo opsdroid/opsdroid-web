@@ -113,7 +113,12 @@ export const Prompt = (): React.ReactElement => {
           onChange={handleInput}
           onKeyUp={checkForEnter}
         />
-        <button onClick={handleSend} type="submit" id="align-with-input">
+        <button
+          onClick={handleSend}
+          type="submit"
+          role="send"
+          id="align-with-input"
+        >
           <SendIcon className="icon" />
           <span id="status-indicator" className={connected ? "show" : "hide"}>
             <span
