@@ -1,11 +1,33 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "opsdroid-web",
+  "name": "opsdroid-web",
+  "description": "A minimal web chat client for speaking to opsdroid",
+  "default_locale": "en",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "logo16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "logo24.png",
+      "type": "image/png",
+      "sizes": "24x24"
+    },
+    {
+      "src": "logo32.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "logo64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "logo.svg",
+      "sizes": "150x150",
+      "type": "image/svg"
     },
     {
       "src": "logo192.png",
@@ -20,6 +42,10 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#176587",
+  "background_color": "#ffffff",
+  "developer": {
+    "name": "FabioRosado",
+    "url": "https://fabiorosado.dev"
+  }
 }

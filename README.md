@@ -1,11 +1,13 @@
 # opsdroid web
 
-<a href="https://github.com/opsdroid/opsdroid-web/actions"><img src="https://github.com/opsdroid/opsdroid-web/workflows/CI/badge.svg?event=push&branch=main" alt="Github CI Status"></img></a>
-[![Known Vulnerabilities](https://snyk.io/test/github/opsdroid/opsdroid-web/badge.svg)]
+<a href="https://github.com/opsdroid/opsdroid-web/actions"><img src="https://github.com/opsdroid/opsdroid-web/actions/workflows/node.js.yml/badge.svg" alt="Github CI Status"></img></a>
+![GitHub](https://img.shields.io/github/license/opsdroid/opsdroid-web)
+![GitHub last commit](https://img.shields.io/github/last-commit/opsdroid/opsdroid-web)
+<a href="https://app.element.io/#/room/#opsdroid-general:matrix.org"><img src="https://img.shields.io/matrix/opsdroid-general:matrix.org.svg?logo=matrix" alt="Matrix Chat" /></a>
 
 A browser based web app for chatting with [opsdroid](https://github.com/opsdroid/opsdroid).
 
-![Screenshot](https://user-images.githubusercontent.com/3131401/174496947-dcd648e1-14ea-4d44-9850-f058d85e8054.png)
+<img width="499" alt="Screenshot 2022-06-19 at 20 15 14" src="https://user-images.githubusercontent.com/3131401/174496947-dcd648e1-14ea-4d44-9850-f058d85e8054.png">
 
 ## Development
 
