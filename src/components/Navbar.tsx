@@ -4,14 +4,18 @@ import { connectToWebsocket, WebsocketConnector } from "../websockets";
 import SettingsSharpIcon from "../icons/settingsIcon";
 import BxLinkIcon from "../icons/connectIcon";
 import BxUnlinkIcon from "../icons/disconnectIcon";
+import WarningIcon from "../icons/warningIcon";
 import Logo from "../icons/logo";
 
 export const NavBar = (): React.ReactElement => {
-  const { showSettings, connected, client } = UIStore.useState((s) => ({
-    showSettings: s.clientSettings.showSettings,
-    connected: s.connection.connected,
-    client: s.connection.client,
-  }));
+  const { showSettings, connected, client, connectedState } = UIStore.useState(
+    (s) => ({
+      showSettings: s.clientSettings.showSettings,
+      connected: s.connection.connected,
+      client: s.connection.client,
+      connectedState: s.connection.loadState,
+    })
+  );
   const toggleSettings = () => {
     UIStore.update((s) => {
       s.clientSettings.showSettings = !showSettings;
@@ -25,28 +29,53 @@ export const NavBar = (): React.ReactElement => {
       connectToWebsocket();
     }
   };
+
+  const showConnectionState = (): React.ReactElement => {
+    if (connectedState.type == "error") {
+      return (
+        <React.Fragment>
+          <WarningIcon className="icon" /> {"Disconnected"}
+        </React.Fragment>
+      );
+    } else if (connected) {
+      return (
+        <React.Fragment>
+          <BxLinkIcon className="icon" /> {"Connected"}
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <BxUnlinkIcon className="icon" /> {"Disconnected"}
+        </React.Fragment>
+      );
+    }
+  };
+
   return (
     <header className="navbar">
       <Logo className="logo" />
       <div className="navbar-right">
         <button
-          className="connectionButton"
+          className="connection-button"
+          role="connect"
           onClick={() => connectIfNeeded(client)}
         >
-          {connected ? (
-            <>
-              <BxLinkIcon className="icon" /> {"Connected"}
-            </>
-          ) : (
-            <>
-              <BxUnlinkIcon className="icon" /> {"Disconnected"}
-            </>
-          )}
+          {showConnectionState()}
         </button>
-        <button className="settingsButton" onClick={toggleSettings}>
+        <button
+          className="settings-button"
+          role="toggleSettings"
+          onClick={toggleSettings}
+        >
           <SettingsSharpIcon className={showSettings ? "open icon" : "icon"} />
         </button>
       </div>
+      {connectedState.type == "error" && (
+        <div className="error-message">
+          <p>Error Connecting: {connectedState.error}</p>
+        </div>
+      )}
     </header>
   );
 };

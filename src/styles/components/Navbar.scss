@@ -26,17 +26,26 @@
     .navbar-right {
         display: flex;
 
-        .connectionButton {
+        .connection-button {
             color: $tertiary;
             display: flex;
             align-items: center;
             margin-right: $spacing;
         }
 
-        .settingsButton {
+        .settings-button {
             margin-right: $spacing;
         }
-
+    }
+    .error-message {
+        position: absolute;
+        background: $grey;
+        top: 2.5rem;
+        width: 100%;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        color: $dark;
     }
 }
 

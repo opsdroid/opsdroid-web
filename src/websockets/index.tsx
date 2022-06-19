@@ -54,10 +54,14 @@ export const connectToWebsocket = () => {
       }
     })
     .catch((err: Error) => {
+      let error = err.message;
+      if (err.message == "Failed to fetch") {
+        error = "Unable to request socket. Is the server running?";
+      }
       UIStore.update((s) => {
         s.connection = {
           ...s.connection,
-          ...updateConnectionStateWithError(err.message, err),
+          ...updateConnectionStateWithError(error, err),
         };
       });
       console.error("Unable to connect to websocket", err);
