@@ -1,5 +1,6 @@
 @import '../vars';
 
+
 .message {
   li {
     text-align: left;
@@ -9,6 +10,25 @@
     display: block;
     white-space: pre-wrap;
     word-break: break-word;
+
+    p {
+      margin: 0;
+    }
+    .timestamp {
+      opacity: .5;
+      padding:0 .5rem;
+      font-weight: normal;
+    }
+
+    .username {
+      display: flex;
+      flex-direction: row;
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+    .username.invert {
+      flex-direction: row-reverse;
+    }
   }
 
   li.clearfix {
@@ -24,7 +44,6 @@
     float: right;
     background-color: $primary-medium;
     color: white;
-    // border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
 
     .image-url {
@@ -36,10 +55,7 @@
     float: left;
     background-color: $grey;
     color: $primary;
-    // border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
-
-
 
     .image-url {
       color: black;
