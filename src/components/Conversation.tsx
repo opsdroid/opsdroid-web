@@ -1,6 +1,8 @@
 import { UIStore } from "../store";
 import { MessageType } from "../types";
 import React, { useRef, useEffect } from "react";
+import PersonFillIcon from "../icons/personIcon";
+import Logo from "../icons/logo";
 
 interface MessageProps {
   message: MessageType;
@@ -12,26 +14,37 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
   };
   const user = message.user !== "opsdroid" ? "user" : message.user;
   return (
-    <div className="message">
-      {message.image && (
+    <div className="message-section">
+      <div className={`${user} avatar`}>
+        {user === "opsdroid" ? (
+          <Logo className={`${user}-icon`} />
+        ) : (
+          <PersonFillIcon className={`${user}-icon`} />
+        )}
+      </div>
+      <div className={`${user} message`}>
         <li className={user}>
-          <a className="image-url" href={message.text}>
-            {message.text}
-          </a>
-          <li
-            className={`${user} image`}
-            style={{ backgroundImage: `url(${message.image})` }}
-          />
+          <p
+            className={`username ${user !== "opsdroid" ? "invert" : "normal"}`}
+          >
+            {message.user}{" "}
+            <span className="timestamp">{getTime(message.timestamp)}</span>
+          </p>
+          {message.image && (
+            <p>
+              <a className="image-url" href={message.text}>
+                {message.text}
+              </a>
+              <p
+                className={`${user} image`}
+                style={{ backgroundImage: `url(${message.image})` }}
+              />
+            </p>
+          )}
+          {message.text != message.image && <p>{message.text}</p>}
         </li>
-      )}
-      {message.text != message.image && (
-        <li className={user}>{message.text}</li>
-      )}
-      <li className="clearfix" />
-      {message.user != "info" && (
-        <li className={`${user} timestamp`}>{getTime(message.timestamp)}</li>
-      )}
-      <li className="clearfix" />
+        <li className="clearfix" />
+      </div>
     </div>
   );
 };
@@ -42,7 +55,7 @@ export const Conversation = () => {
   }));
   const messagesRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
-    if (messagesRef.current) {
+    if (messagesRef.current && conversation.length > 4) {
       messagesRef.current.scrollIntoView({
         behavior: "smooth",
         block: "end",

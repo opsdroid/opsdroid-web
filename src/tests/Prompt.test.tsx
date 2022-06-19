@@ -21,7 +21,7 @@ test("trying to send message while disconnected flashes tooltip", () => {
   // We expect that our connected state to be false
   const { container } = render(<Prompt />);
   const prompt = screen.getByPlaceholderText("Say something...");
-  const submit = screen.getByText("Send");
+  const submit = screen.getByRole("send");
   fireEvent.change(prompt, {
     target: { value: "Hello" },
   });
@@ -40,7 +40,7 @@ test("clicking submit should send the message", () => {
 
   render(<Prompt />);
   const prompt = screen.getByPlaceholderText("Say something...");
-  const submit = screen.getByText("Send");
+  const submit = screen.getByRole("send");
   fireEvent.change(prompt, {
     target: { value: "Hello" },
   });

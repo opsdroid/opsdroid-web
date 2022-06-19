@@ -1,35 +1,40 @@
 @import '../vars';
 
 .prompt {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
   #input {
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    width: 100%;
+    bottom: 0;
+    width: 65%;
+    left: 0;
+    margin: $spacing;
   }
 
-  #input::-webkit-input-placeholder {
-    color: $opsdroid-grey-dark;
+  #align-with-input {
+    margin: $spacing;
   }
 
-  #send {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    width: 60px;
+  .icon {
+    color: $primary;
+    width: 20px;
+    height: 20px;
   }
 
   #status-indicator {
     content: '';
     position: fixed;
     cursor: pointer;
-    border: 1px solid $opsdroid-grey-dark;
-    border-radius: $status-indicator-size;
     height: $status-indicator-size;
-    width: $status-indicator-size;
-    background-color: $opsdroid-grey;
     bottom: calc($prompt-height / 2) - calc($status-indicator-size / 2);
-    right: $send-width + ($status-indicator-size * 2);
+    right: 110px;
+    margin: $spacing;
 
     #status-indicator-tooltip {
       visibility: hidden;
@@ -40,7 +45,6 @@
       padding: 5px 10px;
       border-radius: 6px;
 
-      /* Position the tooltip text - see examples below! */
       position: absolute;
       z-index: 1;
       top: calc(-5px - calc($status-indicator-size / 2));
@@ -56,7 +60,7 @@
       position: absolute;
       top: 50%;
       left: 100%;
-      /* To the right of the tooltip */
+
       margin-top: -5px;
       border-width: 5px;
       border-style: solid;
@@ -70,7 +74,7 @@
     }
   }
 
-  #status-indicator.show {
+  #status-indicator.active {
     background-color: $opsdroid-grey-dark;
   }
 }

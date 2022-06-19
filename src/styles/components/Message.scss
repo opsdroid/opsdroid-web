@@ -1,5 +1,32 @@
 @import '../vars';
 
+
+.avatar {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+
+    &.user {
+      float: right;
+      background-color: $grey;
+      margin-left: .5rem;
+    }
+
+    &.opsdroid {
+      float: left;
+      background-color: $primary;
+      margin-right: .5rem;
+    }
+
+    .user-icon {
+      height: 50px;
+      width: 50px;
+      color: $tertiary;
+    }
+}
+
 .message {
   li {
     text-align: left;
@@ -9,6 +36,25 @@
     display: block;
     white-space: pre-wrap;
     word-break: break-word;
+
+    p {
+      margin: 0;
+    }
+    .timestamp {
+      opacity: .5;
+      padding:0 .5rem;
+      font-weight: normal;
+    }
+
+    .username {
+      display: flex;
+      flex-direction: row;
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+    .username.invert {
+      flex-direction: row-reverse;
+    }
   }
 
   li.clearfix {
@@ -22,27 +68,27 @@
 
   li.user {
     float: right;
-    background-color: $opsdroid-blue;
-    color: white;
-    border-bottom-right-radius: 0px;
+    background-color: $primary-medium;
+    color: $tertiary;
+    border-top-right-radius: 0px;
 
     .image-url {
-      color: white;
+      color: $tertiary;
     }
   }
 
   li.opsdroid {
     float: left;
-    background-color: $opsdroid-grey;
-    color: black;
-    border-bottom-left-radius: 0px;
+    background-color: $grey;
+    color: $primary;
+    border-top-left-radius: 0px;
 
     .image-url {
-      color: black;
+      color: $primary;
     }
   }
 
-  li.image {
+  .image {
     content: '';
     display: block;
     margin-top: .5rem;

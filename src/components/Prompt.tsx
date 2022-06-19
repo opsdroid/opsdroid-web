@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { UIStore } from "../store";
 import { expandMessage } from "../utils/message";
+import SendIcon from "../icons/sendIcon";
+import BxsMicrophoneIcon from "../icons/microphoneIcon";
 
 type inputState = {
   //TODO: This should really be message!
@@ -76,12 +78,6 @@ export const Prompt = (): React.ReactElement => {
     }
   };
 
-  const toggleConnectionSettings = () => {
-    UIStore.update((s) => {
-      s.clientSettings.showSettings = !showSettings;
-    });
-  };
-
   const flashTooltip = () => {
     setInput({
       ...input,
@@ -103,29 +99,37 @@ export const Prompt = (): React.ReactElement => {
 
   return (
     <div className={showSettings ? "prompt inactive" : "prompt active"}>
-      <input
-        type="text"
-        ref={promptRef}
-        id="input"
-        className="prompt-input"
-        placeholder="Say something..."
-        value={input.text}
-        onChange={handleInput}
-        onKeyUp={checkForEnter}
-      />
-      <input type="submit" id="send" value="Send" onClick={handleSend} />
-      <span
-        id="status-indicator"
-        onClick={toggleConnectionSettings}
-        className={connected ? "show" : "hide"}
-      >
-        <span
-          id="status-indicator-tooltip"
-          className={input.showTooltip ? "show" : "inactive"}
+      <div className="container">
+        <button id="align-with-input">
+          <BxsMicrophoneIcon className="icon" />
+        </button>
+        <input
+          type="text"
+          ref={promptRef}
+          id="input"
+          className="prompt-input"
+          placeholder="Say something..."
+          value={input.text}
+          onChange={handleInput}
+          onKeyUp={checkForEnter}
+        />
+        <button
+          onClick={handleSend}
+          type="submit"
+          role="send"
+          id="align-with-input"
         >
-          {connected ? "connected" : "disconnected"}
-        </span>
-      </span>
+          <SendIcon className="icon" />
+          <span id="status-indicator" className={connected ? "show" : "hide"}>
+            <span
+              id="status-indicator-tooltip"
+              className={input.showTooltip ? "show" : "inactive"}
+            >
+              {connected ? "connected" : "disconnected"}
+            </span>
+          </span>
+        </button>
+      </div>
     </div>
   );
 };

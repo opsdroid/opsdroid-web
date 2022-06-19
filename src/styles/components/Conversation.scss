@@ -1,9 +1,10 @@
 @import '../vars';
 
 .conversation {
-  margin: 8px;
+  margin: calc($spacing * 3) $spacing $spacing $spacing;
   padding: 0;
   list-style-type: none;
   margin-bottom: $prompt-height;
   text-align: center;
+  min-height: 100vh;
 }
