@@ -1,6 +1,32 @@
 @import '../vars';
 
 
+.avatar {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+
+    &.user {
+      float: right;
+      background-color: $grey;
+      margin-left: .5rem;
+    }
+
+    &.opsdroid {
+      float: left;
+      background-color: $primary;
+      margin-right: .5rem;
+    }
+
+    .user-icon {
+      height: 50px;
+      width: 50px;
+      color: $tertiary;
+    }
+}
+
 .message {
   li {
     text-align: left;
