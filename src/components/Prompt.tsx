@@ -8,6 +8,7 @@ type inputState = {
   //TODO: This should really be message!
   text: string;
   showTooltip: boolean;
+  historyIndex: number;
 };
 
 export const Prompt = (): React.ReactElement => {
@@ -19,20 +20,80 @@ export const Prompt = (): React.ReactElement => {
       focus();
     };
   }, []);
-  const { connected, showSettings, username } = UIStore.useState((s) => ({
-    connected: s.connection.connected,
-    showSettings: s.clientSettings.showSettings,
-    username: s.username,
-  }));
+  const { connected, showSettings, username, messages } = UIStore.useState(
+    (s) => ({
+      connected: s.connection.connected,
+      showSettings: s.clientSettings.showSettings,
+      username: s.username,
+      messages: s.conversation,
+    })
+  );
   const [input, setInput] = useState<inputState>({
     text: "",
     showTooltip: false,
+    historyIndex: 0,
   });
 
-  const checkForEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const getLastMessageFromIndex = (index: number, key: "up" | "down") => {
+    if (key === "up") {
+      let i = index - 1;
+      while (index !== 0) {
+        if (messages[i].user !== "opsdroid") {
+          return messages[i];
+        } else {
+          i--;
+        }
+      }
+    } else if (key === "down") {
+      let i;
+      if (index >= messages.length - 1) {
+        i = 1;
+      } else {
+        i = index + 1;
+      }
+
+      while (index !== 0) {
+        console.log("I is:", i);
+        if (messages[i] && messages[i].user !== "opsdroid") {
+          return messages[i];
+        } else if (i >= messages.length - 1) {
+          i = 0;
+        } else {
+          i++;
+        }
+      }
+    }
+  };
+
+  const toggleHistory = (key: "up" | "down") => {
+    if (input.historyIndex === 0 && messages.length > 0) {
+      setInput({
+        ...input,
+        historyIndex: messages.length - 1,
+      });
+    }
+    const lastMessage = getLastMessageFromIndex(input.historyIndex, key);
+    if (lastMessage) {
+      setInput({
+        ...input,
+        text: lastMessage?.text || "",
+        historyIndex: messages.indexOf(lastMessage),
+      });
+    }
+  };
+
+  const checkForKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
-    if (event.key === "Enter" || event.keyCode === 13) {
-      handleSend();
+    switch (event.key) {
+      case "Enter":
+        handleSend();
+        break;
+      case "ArrowUp":
+        toggleHistory("up");
+        break;
+      case "ArrowDown":
+        toggleHistory("down");
+        break;
     }
   };
 
@@ -111,7 +172,8 @@ export const Prompt = (): React.ReactElement => {
           placeholder="Say something..."
           value={input.text}
           onChange={handleInput}
-          onKeyUp={checkForEnter}
+          onKeyUp={checkForKey}
+          autoComplete="off"
         />
         <button
           onClick={handleSend}
