@@ -69,11 +69,11 @@
   li.user {
     float: right;
     background-color: $primary-medium;
-    color: white;
+    color: $tertiary;
     border-top-right-radius: 0px;
 
     .image-url {
-      color: white;
+      color: $tertiary;
     }
   }
 
@@ -84,11 +84,11 @@
     border-top-left-radius: 0px;
 
     .image-url {
-      color: black;
+      color: $primary;
     }
   }
 
-  li.image {
+  .image {
     content: '';
     display: block;
     margin-top: .5rem;
