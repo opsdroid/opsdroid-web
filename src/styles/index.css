@@ -58,6 +58,7 @@
   --error-message-background: var(--grey);
   --error-message-color: var(--dark);
   --settings-text: var(--white);
+  --opsdroid-avatar: var(--blue);
   }
 
   [data-theme="light-blue"] {
@@ -78,6 +79,7 @@
     --error-message-background: var(--grey);
     --error-message-color: var(--dark);
     --settings-text: var(--dark);
+    --opsdroid-avatar: var(--blue);
   }
 
   [data-theme="light-green"] {
@@ -99,6 +101,7 @@
     --error-message-color: var(--dark);
     --navbar-border: var(--green-lightest);
     --settings-text: var(--dark);
+    --opsdroid-avatar: var(--green);
   }
   [data-theme="dark-green"] {
     --base-color: #082B1B;
@@ -117,7 +120,7 @@
     --navbar-icon-open: var(--green-light);
     --error-message-background: var(--grey);
     --error-message-color: var(--dark);
-    /* --navbar-border: var(--green); */
+    --opsdroid-avatar: var(--green);
     --settings-text: var(--white);
   }
 
@@ -563,7 +566,7 @@ input:checked + .slider:before {
 
 .avatar.opsdroid {
   float: left;
-  background-color: #176587;
+  background-color: var(--opsdroid-avatar);
   margin-right: .5rem;
 }
 

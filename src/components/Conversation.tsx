@@ -6,9 +6,13 @@ import Logo from "../icons/logo";
 
 interface MessageProps {
   message: MessageType;
+  accent: string;
 }
 
-export const Message = ({ message }: MessageProps): React.ReactElement => {
+export const Message = ({
+  message,
+  accent,
+}: MessageProps): React.ReactElement => {
   const getTime = (timestamp: Date): string => {
     return timestamp.toTimeString().replace(/.*(\d{2}:\d{2}):\d{2}.*/, "$1");
   };
@@ -17,7 +21,7 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
     <div className="message-section">
       <div className={`${user} avatar`}>
         {user === "opsdroid" ? (
-          <Logo className={`${user}-icon`} />
+          <Logo className={`${user}-icon`} accent={accent} />
         ) : (
           <PersonFillIcon className={`${user}-icon`} />
         )}
@@ -50,8 +54,9 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
 };
 
 export const Conversation = () => {
-  const { conversation } = UIStore.useState((s) => ({
+  const { conversation, accentColor } = UIStore.useState((s) => ({
     conversation: s.conversation,
+    accentColor: s.appearance.accentColor,
   }));
   const messagesRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
@@ -74,7 +79,7 @@ export const Conversation = () => {
     <React.Fragment>
       <div className="conversation" ref={messagesRef}>
         {conversation.map((message: MessageType, index: number) => (
-          <Message message={message} key={index} />
+          <Message message={message} accent={accentColor} key={index} />
         ))}
       </div>
       <div ref={messagesRef} />

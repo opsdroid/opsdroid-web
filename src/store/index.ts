@@ -53,17 +53,6 @@ export type AppState = {
   appearance: Appearance;
 };
 
-const defaultDarkTheme = window.matchMedia(
-  "(prefers-color-scheme: dark"
-).matches;
-
-let darkTheme;
-if (defaultDarkTheme) {
-  darkTheme = Boolean(settings.get("dark-theme")) || defaultDarkTheme;
-} else {
-  darkTheme = false;
-}
-
 let accentColor;
 const storedAccentColor = settings.get("accent-color");
 
@@ -91,7 +80,7 @@ export const UIStore = new Store<AppState>({
   conversation: [],
   username: settings.get("username") || "user",
   appearance: {
-    darkTheme: darkTheme,
+    darkTheme: Boolean(settings.get("dark-theme")),
     accentColor: accentColor,
   },
 });

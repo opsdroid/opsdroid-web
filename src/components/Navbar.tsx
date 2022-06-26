@@ -52,11 +52,9 @@ export const NavBar = (): React.ReactElement => {
     }
   };
 
-  const logoBorder = accentColor === "green" ? "#22B573" : "#176587";
-
   return (
     <header className="navbar">
-      <Logo className="logo" background={logoBorder} />
+      <Logo className="logo" accent={accentColor} />
       <div className="navbar-right">
         <button
           className="connection-button"
