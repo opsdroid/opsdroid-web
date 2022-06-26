@@ -8,14 +8,14 @@ import WarningIcon from "../icons/warningIcon";
 import Logo from "../icons/logo";
 
 export const NavBar = (): React.ReactElement => {
-  const { showSettings, connected, client, connectedState } = UIStore.useState(
-    (s) => ({
+  const { showSettings, connected, client, connectedState, accentColor } =
+    UIStore.useState((s) => ({
       showSettings: s.clientSettings.showSettings,
       connected: s.connection.connected,
       client: s.connection.client,
       connectedState: s.connection.loadState,
-    })
-  );
+      accentColor: s.appearance.accentColor,
+    }));
   const toggleSettings = () => {
     UIStore.update((s) => {
       s.clientSettings.showSettings = !showSettings;
@@ -52,9 +52,11 @@ export const NavBar = (): React.ReactElement => {
     }
   };
 
+  const logoBorder = accentColor === "green" ? "#22B573" : "#176587";
+
   return (
     <header className="navbar">
-      <Logo className="logo" />
+      <Logo className="logo" background={logoBorder} />
       <div className="navbar-right">
         <button
           className="connection-button"

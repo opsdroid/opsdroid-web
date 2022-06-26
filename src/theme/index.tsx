@@ -1,4 +1,3 @@
-import React from "react";
 import { UIStore } from "../store";
 
 export const getTheme = (): string => {

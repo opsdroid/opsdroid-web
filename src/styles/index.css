@@ -41,7 +41,6 @@
 }
 
 [data-theme="dark-blue"] {
-
   --base-color: #0D3B4E;
   --icon-color: var(--white);
   --text-color: var(--white);
@@ -53,6 +52,12 @@
   --slider-background:  var(--blue);
   --slider-button: var(--white);
   --slider-background-on: var(--blue-light);
+  --navbar-background: var(--blue);
+  --navbar-icon: var(--white);
+  --navbar-icon-open: var(--blue-light);
+  --error-message-background: var(--grey);
+  --error-message-color: var(--dark);
+  --settings-text: var(--white);
   }
 
   [data-theme="light-blue"] {
@@ -67,6 +72,53 @@
     --slider-background:  var(--grey);
     --slider-button: var(--blue);
     --slider-background-on: var(--blue-lightest);
+    --navbar-background: var(--blue);
+    --navbar-icon: var(--white);
+    --navbar-icon-open: var(--blue-light);
+    --error-message-background: var(--grey);
+    --error-message-color: var(--dark);
+    --settings-text: var(--dark);
+  }
+
+  [data-theme="light-green"] {
+    --base-color: var(--white);
+    --icon-color: var(--green);
+    --text-color: var(--dark);
+    --input-color: var(--green-lightest);
+    --user-chat-bubble-color: var(--green-lightest);
+    --user-chat-bubble-text: var(--dark);
+    --opsdroid-chat-bubble-color: var(--grey);
+    --opsdroid-chat-bubble-text: var(--dark);
+    --slider-background:  var(--green-lightest);
+    --slider-button: var(--green);
+    --slider-background-on: var(--green-light);
+    --navbar-background: var(--white);
+    --navbar-icon: var(--green);
+    --navbar-icon-open: var(--green-light);
+    --error-message-background: var(--grey);
+    --error-message-color: var(--dark);
+    --navbar-border: var(--green-lightest);
+    --settings-text: var(--dark);
+  }
+  [data-theme="dark-green"] {
+    --base-color: #082B1B;
+    --icon-color: var(--green);
+    --text-color: var(--white);
+    --input-color: var(--green);
+    --user-chat-bubble-color: var(--green-medium);
+    --user-chat-bubble-text: var(--dark);
+    --opsdroid-chat-bubble-color: var(--green-lightest);
+    --opsdroid-chat-bubble-text: var(--dark);
+    --slider-background:  var(--green-lightest);
+    --slider-button: var(--green);
+    --slider-background-on: var(--green-light);
+    --navbar-background: var(--green);
+    --navbar-icon: var(--white);
+    --navbar-icon-open: var(--green-light);
+    --error-message-background: var(--grey);
+    --error-message-color: var(--dark);
+    /* --navbar-border: var(--green); */
+    --settings-text: var(--white);
   }
 
 
@@ -238,6 +290,10 @@ button {
   background-color: var(--base-color);
   padding: 0 1rem;
   z-index: 8;
+}
+
+#settings h2 {
+  color: var(--settings-text);
 }
 
 #settings.active {
@@ -416,11 +472,12 @@ input:checked + .slider:before {
 /***************/
 
 .navbar {
-  background-color: #176587;
+  background-color: var(--navbar-background);
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  border-bottom: 1.5px solid var(--navbar-border);
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -434,14 +491,14 @@ input:checked + .slider:before {
 }
 
 .navbar .icon {
-  color: #FFFF;
+  color: var(--navbar-icon);
   width: 20px;
   height: 20px;
   margin-right: .2rem;
 }
 
 .navbar .open {
-  color: #29a5db;
+  color: var(--navbar-icon-open);
 }
 
 .navbar .navbar-right {
@@ -451,7 +508,7 @@ input:checked + .slider:before {
 }
 
 .navbar .navbar-right .connection-button {
-  color: #FFFF;
+  color: var(--navbar-icon);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -467,7 +524,7 @@ input:checked + .slider:before {
 
 .navbar .error-message {
   position: absolute;
-  background: #E5E9EB;
+  background: var(--error-message-background);
   top: 2.5rem;
   width: 100%;
   left: 0;
@@ -477,7 +534,7 @@ input:checked + .slider:before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  color: #101D23;
+  color: var(--error-message-color);
 }
 
 .logo {
