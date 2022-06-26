@@ -42,7 +42,7 @@ export type Connection = {
 
 export type Appearance = {
   darkTheme: boolean;
-  accentColor: "blue" | "green";
+  accentColor: "blue" | "green" | string;
 };
 
 export type AppState = {
@@ -52,6 +52,26 @@ export type AppState = {
   username: string;
   appearance: Appearance;
 };
+
+const defaultDarkTheme = window.matchMedia(
+  "(prefers-color-scheme: dark"
+).matches;
+
+let darkTheme;
+if (defaultDarkTheme) {
+  darkTheme = Boolean(settings.get("dark-theme")) || defaultDarkTheme;
+} else {
+  darkTheme = false;
+}
+
+let accentColor;
+const storedAccentColor = settings.get("accent-color");
+
+if (storedAccentColor && storedAccentColor === "green") {
+  accentColor = "green";
+} else {
+  accentColor = "blue";
+}
 
 export const UIStore = new Store<AppState>({
   clientSettings: {
@@ -71,8 +91,8 @@ export const UIStore = new Store<AppState>({
   conversation: [],
   username: settings.get("username") || "user",
   appearance: {
-    darkTheme: false,
-    accentColor: "blue",
+    darkTheme: darkTheme,
+    accentColor: accentColor,
   },
 });
 
@@ -110,5 +130,13 @@ UIStore.createReaction(
   (s) => s.username,
   (original) => {
     settings.set("username", original);
+  }
+);
+
+UIStore.createReaction(
+  (s) => s.appearance,
+  (original) => {
+    settings.set("dark-theme", String(original.darkTheme));
+    settings.set("accent-color", original.accentColor);
   }
 );

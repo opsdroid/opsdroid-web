@@ -38,12 +38,6 @@
   --green-light: #B9EACB;
   --green-lightest: #E0F6E8;
 
-
-  --icon-color: var(--primary);
-  --prompt-color: #E5E9EB;
-  --text-color: var(--primary);
-  --input-color: var(--grey)
-
 }
 
 [data-theme="dark-blue"] {
@@ -56,14 +50,23 @@
   --user-chat-bubble-text: var(--white);
   --opsdroid-chat-bubble-color: var(--blue-lightest);
   --opsdroid-chat-bubble-text: var(--blue);
+  --slider-background:  var(--blue);
+  --slider-button: var(--white);
+  --slider-background-on: var(--blue-light);
   }
 
   [data-theme="light-blue"] {
-    --tertiary: var(white);
+    --tertiary: var(--white);
     --icon-color: var(--blue);
     --text-color: var(--blue);
-    --input-color: var(--grey)
-    /* --user-chat-bubble: var(--) */
+    --input-color: var(--grey);
+    --user-chat-bubble-color: var(--blue-medium);
+    --user-chat-bubble-text: var(--white);
+    --opsdroid-chat-bubble-color: var(--grey);
+    --opsdroid-chat-bubble-text: var(--blue);
+    --slider-background:  var(--grey);
+    --slider-button: var(--blue);
+    --slider-background-on: var(--blue-lightest);
   }
 
 
@@ -235,7 +238,7 @@ button {
   background-color: var(--tertiary);
   border-bottom: 1px solid #ebebeb;
   padding: 0 1rem;
-  z-index: 5;
+  z-index: 8;
 }
 
 #settings.active {
@@ -268,7 +271,7 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #E5E9EB;
+  background-color: var(--slider-background);
 }
 
 .slider::before {
@@ -276,7 +279,7 @@ button {
   content: "";
   height: 1.5rem;
   width: 1.5rem;
-  background-color: #176587;
+  background-color: var(--slider-button);
   border-radius: 50%;
   -webkit-transition: .4s;
   transition: .4s;
@@ -284,7 +287,7 @@ button {
 
 .slider.round {
   border-radius: 34px;
-  background-color: #E5E9EB;
+  background-color: var(--slider-background);
 }
 
 .slider.round::before {
@@ -292,12 +295,12 @@ button {
 }
 
 input:checked + .slider {
-  background-color: #D8EEF8;
+  background-color: var(--slider-background-on);
 }
 
 input:focus + .slider {
-  -webkit-box-shadow: 0 0 1px #D8EEF8;
-          box-shadow: 0 0 1px #D8EEF8;
+  -webkit-box-shadow: var(--slider-background-on);
+  box-shadow: var(--slider-background-on);
 }
 
 input:checked + .slider:before {
@@ -317,11 +320,11 @@ input:checked + .slider:before {
 }
 
 .accentButton.blue {
-  background-color: #176587;
+  background-color: var(--blue);
 }
 
 .accentButton.green {
-  background-color: #22B573;
+  background-color: var(--green);
 }
 
 /*****************/
@@ -367,7 +370,7 @@ input:checked + .slider:before {
   position: fixed;
   cursor: pointer;
   height: 10px;
-  /* bottom: calc($prompt-height / 2)-calc($status-indicator-size / 2); */
+  bottom: calc(var(--prompt-height) / 2)-calc(var(--status-indicator-size) / 2);
   right: 110px;
   margin: 1rem;
 }
@@ -382,7 +385,7 @@ input:checked + .slider:before {
   border-radius: 6px;
   position: absolute;
   z-index: 1;
-  /* top: calc(-5px - calc($status-indicator-size / 2)); */
+  top: calc(-5px - calc(var(--status-indicator-size) / 2));
   right: 120%;
 }
 

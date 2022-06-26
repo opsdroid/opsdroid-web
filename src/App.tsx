@@ -12,7 +12,7 @@ function App() {
   const theme = getTheme();
   React.useEffect(() => {
     document.body.setAttribute("data-theme", theme);
-  }, []);
+  }, [theme]);
 
   return (
     <div className="App">
