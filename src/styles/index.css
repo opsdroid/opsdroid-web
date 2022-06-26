@@ -525,7 +525,7 @@ input:checked + .slider:before {
 .navbar .error-message {
   position: absolute;
   background: var(--error-message-background);
-  top: 2.5rem;
+  top: 3rem;
   width: 100%;
   left: 0;
   display: -webkit-box;
