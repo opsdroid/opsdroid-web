@@ -42,7 +42,7 @@
 
 [data-theme="dark-blue"] {
 
-  --tertiary: #0D3B4E;
+  --base-color: #0D3B4E;
   --icon-color: var(--white);
   --text-color: var(--white);
   --input-color: var(--blue);
@@ -56,7 +56,7 @@
   }
 
   [data-theme="light-blue"] {
-    --tertiary: var(--white);
+    --base-color: var(--white);
     --icon-color: var(--blue);
     --text-color: var(--blue);
     --input-color: var(--grey);
@@ -85,12 +85,12 @@ body {
   margin: 0;
   letter-spacing: .03em;
   line-height: 1.6;
-  background-color: var(--tertiary);
+  background-color: var(--base-color);
   color: var(--text-color);
 }
 
 .App {
-  background-color: var(--tertiary);
+  background-color: var(--base-color);
 }
 
 h2 {
@@ -235,8 +235,7 @@ button {
   min-height: 100vh;
   width: 100%;
   left: 0px;
-  background-color: var(--tertiary);
-  border-bottom: 1px solid #ebebeb;
+  background-color: var(--base-color);
   padding: 0 1rem;
   z-index: 8;
 }
