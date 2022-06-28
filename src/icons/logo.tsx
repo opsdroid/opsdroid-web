@@ -3,15 +3,17 @@ import * as React from "react";
 interface LogoProps extends React.SVGProps<SVGSVGElement> {
   background?: string;
   fillColor?: string;
+  accent?: string;
 }
 
 function Logo(props: LogoProps) {
+  const accentColor = props?.accent === "green" ? "#22B573" : "#176587";
   const iconBackground = props.background || "#176587";
   const fillColor = props.fillColor || "#FFFFFF";
   return (
     <svg version="1.1" id="Layer_1" viewBox="0 0 400 400" {...props}>
       <path
-        fill={iconBackground}
+        fill={accentColor || iconBackground}
         d="M350.72,137.44c0.54-16.81-12.7-30.92-29.49-31.46c-8.15-0.28-15.91,2.66-21.86,8.23
 	c-5.51,5.17-8.85,12.05-9.51,19.51c-28.35-23.48-69.83-32.37-92.21-32.37c-16.7,0-43.52,4.53-68.73,17.26
 	c-9.65,4.87-18.06,10.45-25.19,16.64c-0.32-8.05-3.72-15.52-9.61-21.04c-5.94-5.58-13.61-8.51-21.84-8.23
