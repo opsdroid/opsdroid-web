@@ -18,14 +18,22 @@ export const Message = ({
   };
   const user = message.user !== "opsdroid" ? "user" : message.user;
   const userAvatar = message.userAvatar ? (
-    <img src={message.userAvatar} className="user-avatar" alt="user-avatar" />
+    <img
+      src={message.userAvatar}
+      className={`${user}-icon`}
+      alt="user-avatar"
+    />
   ) : (
     <PersonFillIcon className={`${user}-icon`} />
   );
   return (
     <div className="message-section">
       <div className={`${user} avatar`}>
-        {user === "opsdroid" ? <Logo className={`${user}-icon`} /> : userAvatar}
+        {user === "opsdroid" ? (
+          <Logo className={`${user}-icon`} accent={accent} />
+        ) : (
+          userAvatar
+        )}
       </div>
       <div className={`${user} message`}>
         <li className={user}>
@@ -55,9 +63,8 @@ export const Message = ({
 };
 
 export const Conversation = () => {
-  const { conversation, userAvatar, accentColor } = UIStore.useState((s) => ({
+  const { conversation, accentColor } = UIStore.useState((s) => ({
     conversation: s.conversation,
-    userAvatar: s.userSettings.avatar,
     accentColor: s.appearance.accentColor,
   }));
 
