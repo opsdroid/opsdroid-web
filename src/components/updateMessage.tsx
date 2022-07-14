@@ -9,7 +9,7 @@ type updateState = {
 
 export const UpdateMessage = () => {
   const localVersion = process.env.REACT_APP_VERSION;
-  const isRunningDev = process.env.REACT_APP_ENV;
+  const isRunningDev = process.env.REACT_APP_ENV !== "prod";
 
   const [latestVersion, setLatestVersion] = useState<updateState>({
     checkedForUpdate: false,
