@@ -6,9 +6,13 @@ import Logo from "../icons/logo";
 
 interface MessageProps {
   message: MessageType;
+  accent: string;
 }
 
-export const Message = ({ message }: MessageProps): React.ReactElement => {
+export const Message = ({
+  message,
+  accent,
+}: MessageProps): React.ReactElement => {
   const getTime = (timestamp: Date): string => {
     return timestamp.toTimeString().replace(/.*(\d{2}:\d{2}):\d{2}.*/, "$1");
   };
@@ -51,10 +55,12 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
 };
 
 export const Conversation = () => {
-  const { conversation, userAvatar } = UIStore.useState((s) => ({
+  const { conversation, userAvatar, accentColor } = UIStore.useState((s) => ({
     conversation: s.conversation,
     userAvatar: s.userSettings.avatar,
+    accentColor: s.appearance.accentColor,
   }));
+
   const messagesRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     if (messagesRef.current && conversation.length > 4) {
@@ -76,7 +82,7 @@ export const Conversation = () => {
     <React.Fragment>
       <div className="conversation" ref={messagesRef}>
         {conversation.map((message: MessageType, index: number) => (
-          <Message message={message} key={index} />
+          <Message message={message} accent={accentColor} key={index} />
         ))}
       </div>
       <div ref={messagesRef} />

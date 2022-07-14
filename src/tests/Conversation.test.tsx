@@ -8,7 +8,8 @@ test("renders message correctly", () => {
     user: "BobTheBuilder",
     timestamp: new Date(),
   };
-  render(<Message message={message} />);
+  render(<Message message={message} accent={"green"} />);
+
   const username = screen.getByText("BobTheBuilder");
   expect(username).toBeInTheDocument();
 
