@@ -7,6 +7,11 @@ import BxUnlinkIcon from "../icons/disconnectIcon";
 import WarningIcon from "../icons/warningIcon";
 import Logo from "../icons/logo";
 
+type ErrorMessageState = {
+  showErrorMessage: boolean;
+  errorMessage?: string;
+};
+
 export const NavBar = (): React.ReactElement => {
   const { showSettings, connected, client, connectedState, accentColor } =
     UIStore.useState((s) => ({
@@ -22,6 +27,11 @@ export const NavBar = (): React.ReactElement => {
     });
   };
 
+  const [errorMessageState, setErrorMessageState] =
+    React.useState<ErrorMessageState>({
+      showErrorMessage: true,
+    });
+
   const connectIfNeeded = (client?: WebsocketConnector) => {
     if (connected && client) {
       client.disconnect(1000, "Requested by user");
@@ -34,7 +44,8 @@ export const NavBar = (): React.ReactElement => {
     if (connectedState.type == "error") {
       return (
         <React.Fragment>
-          <WarningIcon className="icon" /> {"Disconnected"}
+          <WarningIcon className="icon" title={connectedState.error} />
+          {"Disconnected"}
         </React.Fragment>
       );
     } else if (connected) {
@@ -50,6 +61,23 @@ export const NavBar = (): React.ReactElement => {
         </React.Fragment>
       );
     }
+  };
+
+  if (
+    connectedState.type === "error" &&
+    connectedState.error !== errorMessageState.errorMessage
+  ) {
+    setErrorMessageState({
+      showErrorMessage: true,
+      errorMessage: connectedState.error,
+    });
+  }
+
+  const closeErrorMessage = () => {
+    setErrorMessageState({
+      showErrorMessage: false,
+      errorMessage: errorMessageState.errorMessage,
+    });
   };
 
   return (
@@ -71,11 +99,14 @@ export const NavBar = (): React.ReactElement => {
           <SettingsSharpIcon className={showSettings ? "open icon" : "icon"} />
         </button>
       </div>
-      {connectedState.type == "error" && (
+      {connectedState.type == "error" && errorMessageState.showErrorMessage ? (
         <div className="error-message">
           <p>Error Connecting: {connectedState.error}</p>
+          <button className="close-error-message" onClick={closeErrorMessage}>
+            X
+          </button>
         </div>
-      )}
+      ) : null}
     </header>
   );
 };

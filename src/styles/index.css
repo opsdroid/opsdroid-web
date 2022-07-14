@@ -37,6 +37,7 @@
   --green-medium: #69D191;
   --green-light: #B9EACB;
   --green-lightest: #E0F6E8;
+  --error-background: #fb6666d4;
 
 }
 
@@ -55,7 +56,7 @@
   --navbar-background: var(--blue);
   --navbar-icon: var(--white);
   --navbar-icon-open: var(--blue-light);
-  --error-message-background: var(--grey);
+  --error-message-background: var(--error-background);
   --error-message-color: var(--dark);
   --settings-text: var(--white);
   --opsdroid-avatar: var(--blue);
@@ -76,7 +77,7 @@
     --navbar-background: var(--blue);
     --navbar-icon: var(--white);
     --navbar-icon-open: var(--blue-light);
-    --error-message-background: var(--grey);
+    --error-message-background: var(--error-background);
     --error-message-color: var(--dark);
     --settings-text: var(--dark);
     --opsdroid-avatar: var(--blue);
@@ -97,7 +98,7 @@
     --navbar-background: var(--white);
     --navbar-icon: var(--green);
     --navbar-icon-open: var(--green-light);
-    --error-message-background: var(--grey);
+    --error-message-background: var(--error-background);
     --error-message-color: var(--dark);
     --navbar-border: var(--green-lightest);
     --settings-text: var(--dark);
@@ -118,7 +119,7 @@
     --navbar-background: var(--green);
     --navbar-icon: var(--white);
     --navbar-icon-open: var(--green-light);
-    --error-message-background: var(--grey);
+    --error-message-background: var(--error-background);
     --error-message-color: var(--dark);
     --opsdroid-avatar: var(--green);
     --settings-text: var(--white);
@@ -538,6 +539,11 @@ input:checked + .slider:before {
       -ms-flex-pack: center;
           justify-content: center;
   color: var(--error-message-color);
+}
+
+.navbar .error-message .close-error-message {
+  position: absolute;
+  right: 1rem;
 }
 
 .logo {
