@@ -84,7 +84,7 @@ export const UIStore = new Store<AppState>({
   },
   conversation: [],
   appearance: {
-    darkTheme: Boolean(settings.get("dark-theme")),
+    darkTheme: settings.get("dark-theme") == "true" ? true : false,
     accentColor: accentColor,
   },
   userSettings: {

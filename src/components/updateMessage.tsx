@@ -9,6 +9,8 @@ type updateState = {
 
 export const UpdateMessage = () => {
   const localVersion = process.env.REACT_APP_VERSION;
+  const isRunningDev = process.env.REACT_APP_ENV;
+
   const [latestVersion, setLatestVersion] = useState<updateState>({
     checkedForUpdate: false,
     localIsLatest: true,
@@ -32,43 +34,45 @@ export const UpdateMessage = () => {
   };
 
   const checkForUpdates = () => {
-    const RELEASES_URL =
-      "https://api.github.com/repos/opsdroid/opsdroid-web/releases/latest";
+    if (!isRunningDev) {
+      const RELEASES_URL =
+        "https://api.github.com/repos/opsdroid/opsdroid-web/releases/latest";
 
-    fetch(RELEASES_URL, {
-      method: "GET",
-      mode: "cors",
-      cache: "default",
-    })
-      .then((response) => {
-        if (response.status !== 200) {
-          console.error(`Unexpected response code: ${response.status}`);
-        } else {
-          return response.json();
-        }
+      fetch(RELEASES_URL, {
+        method: "GET",
+        mode: "cors",
+        cache: "default",
       })
-      .then((latest_tag) => {
-        const latest_version = latest_tag?.tag_name.replace("v", "");
-        if (latest_version) {
-          setLatestVersion({
-            checkedForUpdate: true,
-            localIsLatest: latest_version === localVersion,
-            name: latest_version,
-          });
-        } else {
-          setLatestVersion({
-            checkedForUpdate: true,
-            localIsLatest: true,
-            name: "",
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(
-          "Unable to fetch latest version from GitHub. Reason: ",
-          err
-        );
-      });
+        .then((response) => {
+          if (response.status !== 200) {
+            console.error(`Unexpected response code: ${response.status}`);
+          } else {
+            return response.json();
+          }
+        })
+        .then((latest_tag) => {
+          const latest_version = latest_tag?.tag_name.replace("v", "");
+          if (latest_version) {
+            setLatestVersion({
+              checkedForUpdate: true,
+              localIsLatest: latest_version === localVersion,
+              name: latest_version,
+            });
+          } else {
+            setLatestVersion({
+              checkedForUpdate: true,
+              localIsLatest: true,
+              name: "",
+            });
+          }
+        })
+        .catch((err) => {
+          console.error(
+            "Unable to fetch latest version from GitHub. Reason: ",
+            err
+          );
+        });
+    }
   };
 
   return (
