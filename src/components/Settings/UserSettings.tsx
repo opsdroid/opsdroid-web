@@ -4,13 +4,30 @@ import PersonIcon from "../../icons/personOutlineIcon";
 
 export const UserSettings = (): React.ReactElement => {
   const { username } = UIStore.useState((s) => ({
-    username: s.username,
+    username: s.userSettings.username,
   }));
 
   const updateUsername = (e: React.FormEvent<HTMLInputElement>) => {
     UIStore.update((s) => {
-      s.username = e.currentTarget.value;
+      s.userSettings.username = e.currentTarget.value;
     });
+  };
+
+  const updateAvatar = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const avatar = target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(avatar);
+      reader.onload = () => {
+        const result = reader.result as string;
+        if (result) {
+          UIStore.update((s) => {
+            s.userSettings.avatar = result;
+          });
+        }
+      };
+    }
   };
 
   return (
@@ -28,6 +45,14 @@ export const UserSettings = (): React.ReactElement => {
             placeholder={username}
             defaultValue={username}
             onChange={updateUsername}
+          />
+        </div>
+        <div className="flex align-items-center">
+          <p className="padding-right settings-text">Avatar</p>
+          <input
+            type="file"
+            style={{ paddingTop: ".3rem" }}
+            onChange={updateAvatar}
           />
         </div>
       </div>

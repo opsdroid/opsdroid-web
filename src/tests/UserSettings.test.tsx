@@ -12,4 +12,7 @@ test("renders user settings in the page", () => {
 
   fireEvent.change(usernameInput, { target: { value: "user-123" } });
   expect(screen.getByDisplayValue("user-123")).toBeInTheDocument();
+
+  const avatarInput = screen.getByText("Avatar");
+  expect(avatarInput).toBeInTheDocument();
 });

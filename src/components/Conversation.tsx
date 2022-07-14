@@ -13,14 +13,15 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
     return timestamp.toTimeString().replace(/.*(\d{2}:\d{2}):\d{2}.*/, "$1");
   };
   const user = message.user !== "opsdroid" ? "user" : message.user;
+  const userAvatar = message.userAvatar ? (
+    <img src={message.userAvatar} className="user-avatar" alt="user-avatar" />
+  ) : (
+    <PersonFillIcon className={`${user}-icon`} />
+  );
   return (
     <div className="message-section">
       <div className={`${user} avatar`}>
-        {user === "opsdroid" ? (
-          <Logo className={`${user}-icon`} />
-        ) : (
-          <PersonFillIcon className={`${user}-icon`} />
-        )}
+        {user === "opsdroid" ? <Logo className={`${user}-icon`} /> : userAvatar}
       </div>
       <div className={`${user} message`}>
         <li className={user}>
@@ -50,8 +51,9 @@ export const Message = ({ message }: MessageProps): React.ReactElement => {
 };
 
 export const Conversation = () => {
-  const { conversation } = UIStore.useState((s) => ({
+  const { conversation, userAvatar } = UIStore.useState((s) => ({
     conversation: s.conversation,
+    userAvatar: s.userSettings.avatar,
   }));
   const messagesRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {

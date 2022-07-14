@@ -9,9 +9,8 @@ test("renders message correctly", () => {
     timestamp: new Date(),
   };
   render(<Message message={message} />);
-  // TODO: uncomment once user name is shown in message
-  // const username = screen.getByText("BobTheBuilder")
-  // expect(username).toBeInTheDocument();
+  const username = screen.getByText("BobTheBuilder");
+  expect(username).toBeInTheDocument();
 
   const messageText = screen.getByText("Hello");
   expect(messageText).toBeInTheDocument();

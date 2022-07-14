@@ -20,14 +20,14 @@ export const Prompt = (): React.ReactElement => {
       focus();
     };
   }, []);
-  const { connected, showSettings, username, messages } = UIStore.useState(
-    (s) => ({
+  const { connected, showSettings, username, messages, userAvatar } =
+    UIStore.useState((s) => ({
       connected: s.connection.connected,
       showSettings: s.clientSettings.showSettings,
-      username: s.username,
+      username: s.userSettings.username,
+      userAvatar: s.userSettings.avatar,
       messages: s.conversation,
-    })
-  );
+    }));
   const [input, setInput] = useState<inputState>({
     text: "",
     showTooltip: false,
@@ -53,7 +53,6 @@ export const Prompt = (): React.ReactElement => {
       }
 
       while (index !== 0) {
-        console.log("I is:", i);
         if (messages[i] && messages[i].user !== "opsdroid") {
           return messages[i];
         } else if (i >= messages.length - 1) {
@@ -116,6 +115,7 @@ export const Prompt = (): React.ReactElement => {
                 user: username,
                 timestamp: new Date(),
                 image: imageUrl,
+                userAvatar: userAvatar,
               });
             });
           });
@@ -125,6 +125,7 @@ export const Prompt = (): React.ReactElement => {
               text: input.text,
               user: username,
               timestamp: new Date(),
+              userAvatar: userAvatar,
             });
           });
         }
