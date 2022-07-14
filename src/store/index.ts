@@ -45,11 +45,16 @@ export type Appearance = {
   accentColor: "blue" | "green" | string;
 };
 
+export type UserSettings = {
+  username: string;
+  avatar?: string;
+};
+
 export type AppState = {
   clientSettings: ClientSettings;
   connection: Connection;
   conversation: Array<MessageType>;
-  username: string;
+  userSettings: UserSettings;
   appearance: Appearance;
 };
 
@@ -78,10 +83,13 @@ export const UIStore = new Store<AppState>({
     connected: false,
   },
   conversation: [],
-  username: settings.get("username") || "user",
   appearance: {
     darkTheme: Boolean(settings.get("dark-theme")),
     accentColor: accentColor,
+  },
+  userSettings: {
+    username: settings.get("username") || "user",
+    avatar: localStorage.getItem("avatar") || undefined,
   },
 });
 
@@ -116,9 +124,12 @@ UIStore.createReaction(
 );
 
 UIStore.createReaction(
-  (s) => s.username,
+  (s) => s.userSettings,
   (original) => {
-    settings.set("username", original);
+    settings.set("username", original.username);
+    if (original.avatar) {
+      localStorage.setItem("avatar", original.avatar);
+    }
   }
 );
 

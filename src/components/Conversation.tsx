@@ -17,13 +17,22 @@ export const Message = ({
     return timestamp.toTimeString().replace(/.*(\d{2}:\d{2}):\d{2}.*/, "$1");
   };
   const user = message.user !== "opsdroid" ? "user" : message.user;
+  const userAvatar = message.userAvatar ? (
+    <img
+      src={message.userAvatar}
+      className={`${user}-icon`}
+      alt="user-avatar"
+    />
+  ) : (
+    <PersonFillIcon className={`${user}-icon`} />
+  );
   return (
     <div className="message-section">
       <div className={`${user} avatar`}>
         {user === "opsdroid" ? (
           <Logo className={`${user}-icon`} accent={accent} />
         ) : (
-          <PersonFillIcon className={`${user}-icon`} />
+          userAvatar
         )}
       </div>
       <div className={`${user} message`}>
@@ -58,6 +67,7 @@ export const Conversation = () => {
     conversation: s.conversation,
     accentColor: s.appearance.accentColor,
   }));
+
   const messagesRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     if (messagesRef.current && conversation.length > 4) {
