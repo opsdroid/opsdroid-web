@@ -21,7 +21,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.38",
-    "@types/react": "^18.0.10",
+    "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.5",
     "browser-cookies": "^1.2.0",
     "pullstate": "^1.24.0",
