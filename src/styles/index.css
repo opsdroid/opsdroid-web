@@ -689,3 +689,7 @@ input:checked + .slider:before {
   text-align: center;
   min-height: 100vh;
 }
+
+.disabled-button {
+  cursor: help;
+}
