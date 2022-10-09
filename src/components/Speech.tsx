@@ -13,17 +13,28 @@ type DictaphoneProps = {
 export const Dictaphone = ({
   updateInput,
 }: DictaphoneProps): React.ReactElement => {
-  const { transcript, listening, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
   const startListening = () =>
     SpeechRecognition.startListening({ continuous: true });
 
   const stopListening = () => {
-    SpeechRecognition.stopListening();
-    if (transcript) {
-      updateInput(transcript);
-    }
+    // We are stopping listening to the microphone with a delay
+    // because the speech recognition takes a bit to parse the
+    // voice.
+    setTimeout(() => {
+      SpeechRecognition.stopListening();
+    }, 1500);
   };
+
+  if (transcript && !listening) {
+    updateInput(transcript);
+    resetTranscript();
+  }
 
   if (!browserSupportsSpeechRecognition) {
     return (
