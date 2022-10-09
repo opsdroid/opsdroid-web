@@ -2,6 +2,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { Prompt } from "../components/Prompt";
 import { UIStore } from "../store";
 
+// Getting a weird regeneratorRuntime so let's mock the Speech module
+jest.mock("../components/Speech", () => ({
+  Dictaphone: jest.fn(),
+}));
+
 test("renders prompt in the page correctly", () => {
   render(<Prompt />);
   const prompt = screen.getByPlaceholderText("Say something...");

@@ -2,8 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { UIStore } from "../store";
 import { expandMessage } from "../utils/message";
 import SendIcon from "../icons/sendIcon";
-import BxsMicrophoneIcon from "../icons/microphoneIcon";
-
+import { Dictaphone } from "./Speech";
 type inputState = {
   //TODO: This should really be message!
   text: string;
@@ -159,12 +158,17 @@ export const Prompt = (): React.ReactElement => {
     }
   };
 
+  const updateInput = (text: string) => {
+    setInput({
+      ...input,
+      text: text,
+    });
+  };
+
   return (
     <div className={showSettings ? "prompt inactive" : "prompt active"}>
       <div className="container">
-        <button id="align-with-input">
-          <BxsMicrophoneIcon className="icon" />
-        </button>
+        <Dictaphone updateInput={updateInput} />
         <input
           type="text"
           ref={promptRef}
