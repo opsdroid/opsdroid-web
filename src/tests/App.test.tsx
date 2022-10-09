@@ -2,6 +2,11 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
 
+// Getting a weird regeneratorRuntime so let's mock the Speech module
+jest.mock("../components/Speech", () => ({
+  Dictaphone: jest.fn(),
+}));
+
 test("renders app succssfully", () => {
   window.HTMLElement.prototype.scrollIntoView = function () {
     console.log("scrolled down");
