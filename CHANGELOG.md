@@ -2,6 +2,11 @@
 
 These release notes are related to updates to the `opsdroid-web` package.
 
+## v0.2.3
+
+- Documentation changes
+- Fixing issues for npm release
+
 ## v0.2.2
 
 - Dependencies updates
