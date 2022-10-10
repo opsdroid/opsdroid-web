@@ -1,6 +1,6 @@
 {
   "name": "opsdroid-web",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A web client for interacting with opsdroid.",
   "repository": "https://github.com/opsdroid/opsdroid-web",
   "keywords": [
