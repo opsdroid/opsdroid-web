@@ -5,8 +5,8 @@ Contributing to the opsdroid ecosystem is strongly encouraged and every little b
 - Write code to [solve issues](https://github.com/opsdroid/opsdroid-web/issues) in the opsdroid core repository
 - Contribute to [opsdroid](https://github.com/opsdroid/opsdroid) directly (Python)
 - Improve the [official documentation](https://github.com/opsdroid/opsdroid/tree/master/docs) to help others get started
-- Write [skills](../skills/index.md), [connectors](../connectors/custom.md) or [database](../databases/custom.md) modules
-- Contribute to the [opsdroid home page](https://github.com/opsdroid/opsdroid.github.io) (it’s a Jekyll website)
+- Write [skills](https://docs.opsdroid.dev/en/stable/skills/index.html), [connectors](https://docs.opsdroid.dev/en/stable/connectors/index.html) or [database](https://docs.opsdroid.dev/en/stable/databases/index.html) modules
+- Contribute to the [opsdroid home page](https://github.com/opsdroid/opsdroid.github.io) (it's a Jekyll website)
 - Post about your experience using opsdroid on your own blog
 - Submit lots of useful issues
 - Create [logo variations and banners](https://github.com/opsdroid/style-guidelines) for promotion
@@ -24,7 +24,7 @@ Contributing to the opsdroid ecosystem is strongly encouraged and every little b
 
 ### Testing
 
-This project uses [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro/) for testing. When developing new features or fixing bugs, you should run the tests before opening a PR. You should also add tests or update existing ones when appropriate.
+This project uses [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro/) for testing. You should run the tests before opening a PR when developing new features or fixing bugs. You should also add tests or update existing ones when appropriate.
 
 You can run the tests with the command:
 
@@ -36,7 +36,7 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
+Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
@@ -59,13 +59,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 ### `yarn lint`
 
@@ -86,7 +86,7 @@ Maintainers and project owners can make a new release of the app. This section d
 
 1. Safety Checks
    - `git pull main` (if you are using a fork use `git pull upstream main`)
-   - `git status` (confirm that there aren't uncommited changes if they are `git diff`)
+   - `git status` (confirm that there aren't uncommitted changes if they are `git diff`)
    - `yarn test` (double check that tests are still green)
 2. Prepare the release
    - `yarn build` (confirm that the app builds without errors/warnings)

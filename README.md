@@ -25,5 +25,5 @@
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. Read the [Contributing docs](./CONTRIBUTING.md) to know how to contribute to the project.
+This project exists thanks to all the people who contribute. Read the [contributing docs](./CONTRIBUTING.md) to know how to contribute to the project.
 <a href="https://github.com/opsdroid/opsdroid-web/graphs/contributors"><img src="https://opencollective.com/opsdroid/contributors.svg?width=890" /></a>
