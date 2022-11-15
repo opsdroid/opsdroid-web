@@ -19,9 +19,9 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^29.1.2",
+    "@types/jest": "^29.2.0",
     "@types/node": "^18.8.4",
-    "@types/react": "^18.0.21",
+    "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "browser-cookies": "^1.2.0",
     "pullstate": "^1.24.0",
@@ -30,7 +30,7 @@
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.10.0",
     "typescript": "^4.8.4",
-    "web-vitals": "^3.0.3"
+    "web-vitals": "^3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
